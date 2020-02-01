@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">CloudMusic</string>
+    <string name="welcome_text">音樂的力量</string>
+
+    <string name="toolbar_mine_text">我的</string>
+    <string name="toolbar_find_text">发现</string>
+    <string name="toolbar_cloud_village_text">云村</string>
+    <string name="toolbar_video_text">视频</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+
+    
+    <string name="nav_drawer_creator_center">创作者中心</string>
+    <string name="nav_drawer_listen_to_get_songs">听歌识曲</string>
+    <string name="nav_drawer_show">演出</string>
+    <string name="nav_drawer_mall">商城</string>
+    <string name="nav_drawer_people_nearby">附近的人</string>
+    <string name="nav_drawer_game_recommendation">游戏推荐</string>
+    <string name="nav_drawer_pocket_ring_back_tone">口袋彩铃</string>
+    <string name="nav_drawer_my_order">我的订单</string>
+    <string name="nav_drawer_timed_stop_playback">定时停止播放</string>
+    <string name="nav_drawer_scan">扫一扫</string>
+    <string name="nav_drawer_music_alarm_clock">音乐闹钟</string>
+    <string name="nav_drawer_music_cloud_disk">音乐云盘</string>
+    <string name="nav_drawer_listen_to_songs_online_without_traffic">在线听歌免流量</string>
+    <string name="nav_drawer_coupon">优惠券</string>
+    <string name="nav_drawer_teen_mode">青少年模式</string>
+
+</resources>

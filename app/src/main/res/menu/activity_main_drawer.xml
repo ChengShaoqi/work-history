@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/group_1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_drawer_creator_center"
+            android:icon="@drawable/home_navigation_creater_center"
+            android:title="@string/nav_drawer_creator_center" />
+    </group>
+
+    <group
+        android:id="@+id/group_2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_drawer_listen_to_get_songs"
+            android:icon="@drawable/home_navigation_listen_and_get_music_message"
+            android:title="@string/nav_drawer_listen_to_get_songs" />
+        <item
+            android:id="@+id/nav_drawer_show"
+            android:icon="@drawable/home_navigation_show"
+            android:title="@string/nav_drawer_show" />
+        <item
+            android:id="@+id/nav_drawer_mall"
+            android:icon="@drawable/home_navigation_shopping_mall"
+            android:title="@string/nav_drawer_mall" />
+        <item
+            android:id="@+id/nav_drawer_game_recommendation"
+            android:icon="@drawable/home_navigation_game_recommand"
+            android:title="@string/nav_drawer_game_recommendation" />
+        <item
+            android:id="@+id/nav_drawer_pocket_ring_back_tone"
+            android:icon="@drawable/home_navigation_pocket_music"
+            android:title="@string/nav_drawer_pocket_ring_back_tone" />
+    </group>
+
+    <group
+        android:id="@+id/group_3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_drawer_my_order"
+            android:icon="@drawable/home_navigation_my_order"
+            android:title="@string/nav_drawer_my_order" />
+        <item
+            android:id="@+id/nav_drawer_timed_stop_playback"
+            android:icon="@drawable/home_navigation_stop_at_setted_time"
+            android:title="@string/nav_drawer_timed_stop_playback" />
+        <item
+            android:id="@+id/nav_drawer_scan"
+            android:icon="@drawable/home_navigation_scan"
+            android:title="@string/nav_drawer_scan" />
+        <item
+            android:id="@+id/nav_drawer_music_alarm_clock"
+            android:icon="@drawable/home_navigation_music_alarm_clock"
+            android:title="@string/nav_drawer_music_alarm_clock" />
+        <item
+            android:id="@+id/nav_drawer_music_cloud_disk"
+            android:icon="@drawable/home_navigation_music_yun_pan"
+            android:title="@string/nav_drawer_music_cloud_disk" />
+        <item
+            android:id="@+id/nav_drawer_listen_to_songs_online_without_traffic"
+            android:icon="@drawable/home_navigation_listen_music_online_without_flow"
+            android:title="@string/nav_drawer_listen_to_songs_online_without_traffic" />
+        <item
+            android:id="@+id/nav_drawer_coupon"
+            android:icon="@drawable/home_navigation_discount_coupon"
+            android:title="@string/nav_drawer_coupon" />
+        <item
+            android:id="@+id/nav_drawer_teen_mode"
+            android:icon="@drawable/home_navigation_teenager_mode"
+            android:title="@string/nav_drawer_teen_mode" />
+    </group>
+
+</menu>

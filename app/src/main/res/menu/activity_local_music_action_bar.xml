@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/search_button"
+        android:icon="@drawable/actionbar_search"
+        android:title=""
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/download_manage"
+        android:icon="@mipmap/ic_menu_download_manage"
+        android:title="下载管理"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/scan_local_music"
+        android:icon="@mipmap/ic_menu_scan_local_music"
+        android:title="扫描本地音乐"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/choose_sort_way"
+        android:icon="@mipmap/ic_menu_choose_sort_way"
+        android:title="选择排序方式"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/get_cover_lyrics"
+        android:icon="@mipmap/ic_menu_lyrics"
+        android:title="获取封面歌词"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/update_quality"
+        android:icon="@mipmap/ic_menu_update_quality"
+        android:title="升级音质"
+        app:showAsAction="never" />
+</menu>
