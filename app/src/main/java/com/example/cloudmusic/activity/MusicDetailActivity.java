@@ -22,12 +22,15 @@ import com.example.cloudmusic.MyApplication;
 import com.example.cloudmusic.R;
 import com.example.cloudmusic.item.Music;
 import com.example.cloudmusic.other.CircleImageView;
+import com.example.cloudmusic.service.MusicService;
 
 
 import java.io.File;
 import java.util.List;
 
 import me.wcy.lrcview.LrcView;
+
+import static com.example.cloudmusic.service.MusicService.MEDIA_PLAYER_PAUSE;
 
 public class MusicDetailActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "csqMusicDetailActivity";
@@ -56,6 +59,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         mMusicMetaData = ((MyApplication) getApplication()).getMMusicMetaData();
         mMusicList = ((MyApplication) getApplication()).getMMusicList();
         mMediaState = ((MyApplication) getApplication()).getMMediaState();
+        Log.i(TAG, "音乐播放页面的播放状态是：" + mMediaState);
         mMediaPlayer = ((MyApplication) getApplication()).getMMediaPlayer();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -99,9 +103,9 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (mMediaPlayer != null && fromUser) {
-                    mMediaPlayer.seekTo(progress * 1000);
-                }
+//                if (mMediaPlayer != null && fromUser) {
+//                    mMediaPlayer.seekTo(progress * 1000);
+//                }
             }
 
             @Override
@@ -118,7 +122,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
-        updateSeekBar();
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -129,14 +133,20 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         mMusicImageIv.playAnim();
 
         if (mMediaState) {
-            mMusicStateIv.setImageResource(R.drawable.play_rdi_btn_play);
+            int musicState = ((MyApplication) getApplication()).getMMusicState();
+            if (musicState == MusicService.MEDIA_PLAYER_PAUSE) {
+                mMusicStateIv.setImageResource(R.drawable.play_rdi_btn_play);
+            } else {
+                mMusicStateIv.setImageResource(R.drawable.play_rdi_btn_pause);
+            }
         } else {
-            mMusicStateIv.setImageResource(R.drawable.play_rdi_btn_pause);
+            mMusicStateIv.setImageResource(R.drawable.play_rdi_btn_play);
         }
         mTotalTime.setText(mMusicMetaData.getMMusicDuation());
+        updateSeekBar();
     }
 
-    //同步seekbar与进度条时间
+    //同步seekBar与进度条时间
     private void updateSeekBar() {
         runOnUiThread(new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -145,12 +155,12 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
                 if (mMediaPlayer != null) {
                     int mCurrentPosition = mMediaPlayer.getCurrentPosition();//获取player当前进度，毫秒表示
                     int total = mMediaPlayer.getDuration();//获取当前歌曲总时长
-                    mSeekBar.setProgress(mCurrentPosition);//seekbar同步歌曲进度
-                    mSeekBar.setMax(total);//seekbar设置总时长
+                    mSeekBar.setProgress(mCurrentPosition);//seekBar同步歌曲进度
+                    mSeekBar.setMax(total);//seekBar设置总时长
                     mCurrentTime.setText(formatDuration(mCurrentPosition));
                     mTotalTime.setText(formatDuration(total));
                 }
-                mHandler.postDelayed(this, 0);//延迟一秒运行线程
+                mHandler.postDelayed(this, 0);//延迟运行线程
             }
         });
     }
@@ -163,6 +173,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         return formatter.format(currentPosition);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -187,10 +198,28 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
                 mMusicImageIv.setVisibility(View.VISIBLE);
                 break;
             case R.id.playing_pre:
+                ((MyApplication) getApplication()).getMMusicService().preMusic();
+                renderView();
                 break;
             case R.id.playing_play:
+                MyApplication ma = ((MyApplication) getApplication());
+                Log.i(TAG, "onClick: 改变播放状态按钮" + ma.getMMusicService());
+                if (!ma.getMMediaState()) {
+                    ma.getMMusicService().initMediaPlayer(mMusicList.get(ma.getMPosition()).getMMusicPath());
+                    mMusicStateIv.setImageResource(R.mipmap.pause_music);
+                } else {
+                    ma.getMMusicService().changeMusicState();
+                    int musicState = ((MyApplication) getApplication()).getMMusicState();
+                    if (musicState == MEDIA_PLAYER_PAUSE) {
+                        mMusicStateIv.setImageResource(R.drawable.play_rdi_btn_play);
+                    } else {
+                        mMusicStateIv.setImageResource(R.drawable.play_rdi_btn_pause);
+                    }
+                }
                 break;
             case R.id.playing_next:
+                ((MyApplication) getApplication()).getMMusicService().nextMusic();
+                renderView();
                 break;
             default:
                 break;

@@ -65,7 +65,7 @@ public class BottomLayout extends LinearLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.bottom_music_linear_layout:
                 Log.d(TAG, "onClick: 点击了底部信息栏");
                 Intent intent = new Intent(getContext(), MusicDetailActivity.class);
@@ -75,8 +75,9 @@ public class BottomLayout extends LinearLayout implements View.OnClickListener {
                 Log.d(TAG, "onClick: 点击了上一首");
                 break;
             case R.id.music_state_button:
-                int musicState = sLocalBinder.getService().changeMusicState();
-                if (musicState == MEDIA_PLAYER_PAUSE){
+                sLocalBinder.getService().changeMusicState();
+                int musicState = ((MyApplication) getApplicationWindowToken()).getMMusicState();
+                if (musicState == MEDIA_PLAYER_PAUSE) {
                     mMusicState.setImageResource(R.mipmap.start_music);
                 } else {
                     mMusicState.setImageResource(R.mipmap.pause_music);

@@ -43,6 +43,8 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.cloudmusic.service.MusicService.MEDIA_PLAYER_PAUSE;
+
 public class MainActivity extends BaseActivity implements View.OnClickListener, FindFragment.IFindFragmentCallBack, MineFragment.IMineFragmentCallBack {
     private static final String TAG = "csqMainActivity";
     private DrawerLayout mDrawerLayout;
@@ -123,7 +125,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         startService(intent);
         bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
         ((MyApplication) getApplication()).setMServiceConnection(mServiceConnection);
-
     }
 
     @Override
@@ -161,13 +162,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 startActivity(intent);
                 break;
             case R.id.pre_music:
-                Toast.makeText(this, "点击了上一首", Toast.LENGTH_SHORT).show();
+                ((MyApplication) getApplication()).getMMusicService().preMusic();
+                initBottomDisplayUi();
+//                Toast.makeText(this, "点击了上一首", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.music_state_button:
-                Toast.makeText(this, "点击了播放/暂停", Toast.LENGTH_SHORT).show();
+                MyApplication ma = ((MyApplication) getApplication());
+                Log.i(TAG, "onClick: 改变播放状态按钮" + ma.getMMusicService());
+                if (!ma.getMMediaState()) {
+                    ma.getMMusicService().initMediaPlayer(mMusicList.get(ma.getMPosition()).getMMusicPath());
+                    mMusicState.setImageResource(R.mipmap.pause_music);
+                } else {
+                    ma.getMMusicService().changeMusicState();
+                    int musicState =  ((MyApplication)getApplication()).getMMusicState();
+                    if (musicState == MEDIA_PLAYER_PAUSE) {
+                        mMusicState.setImageResource(R.mipmap.start_music);
+                    } else {
+                        mMusicState.setImageResource(R.mipmap.pause_music);
+                    }
+                }
+//                Toast.makeText(this, "点击了播放/暂停", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.next_music:
-                Toast.makeText(this, "点击了下一首", Toast.LENGTH_SHORT).show();
+                ((MyApplication) getApplication()).getMMusicService().nextMusic();
+                initBottomDisplayUi();
+//                Toast.makeText(this, "点击了下一首", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
@@ -188,7 +207,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mMusicName.setText(musicMetaData.getMMusicName());
         mSingerName.setText(musicMetaData.getMSingerName());
         mMusicState.setImageResource(((MyApplication) getApplication()).getMMediaState() ?
-                R.mipmap.pause_music : R.mipmap.start_music);
+                ((MyApplication) getApplication()).getMMusicState() == MusicService.MEDIA_PLAYER_PAUSE ?
+                        R.mipmap.start_music : R.mipmap.pause_music :
+                R.mipmap.start_music);
     }
 
     private void initDatabaseData() {
@@ -275,6 +296,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mPreMusic.setOnClickListener(this);
         mMusicState.setOnClickListener(this);
         mNextMusic.setOnClickListener(this);
+        //显示出导航栏每项图标
         mNavigationView.setItemIconTintList(null);
     }
 

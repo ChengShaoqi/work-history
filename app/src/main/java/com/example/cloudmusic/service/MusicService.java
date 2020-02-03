@@ -73,24 +73,26 @@ public class MusicService extends Service {
             Log.e(TAG, "initMediaPlayer: 初始化音源异常", e);
         }
         mMediaPlayer.start();
+        ((MyApplication)getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
         ((MyApplication)getApplication()).setMMediaState(true);
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer arg0) {
                 mMediaPlayer.start();
+                ((MyApplication)getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
                 mMediaPlayer.setLooping(true);
             }
         });
     }
 
     //播放暂停
-    public int changeMusicState() {
+    public void changeMusicState() {
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.pause();
-            return MEDIA_PLAYER_PAUSE;
+            ((MyApplication)getApplication()).setMMusicState(MEDIA_PLAYER_PAUSE);
         } else {
             mMediaPlayer.start();
-            return MEDIA_PLAYER_PLAY;
+            ((MyApplication)getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
         }
     }
 
@@ -154,6 +156,7 @@ public class MusicService extends Service {
 
     @Override
     public boolean onUnbind(Intent intent) {
+        mMediaPlayer.release();
         return super.onUnbind(intent);
     }
 

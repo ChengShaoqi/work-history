@@ -20,6 +20,7 @@ public class MyApplication extends Application {
     private MusicService mMusicService;
     private MusicMetaData mMusicMetaData;
     private boolean mMediaState;
+    private int mMusicState = MusicService.MEDIA_PLAYER_PAUSE;
     private MediaPlayer mMediaPlayer;
 
 
@@ -86,6 +87,14 @@ public class MyApplication extends Application {
 
     public void setMMediaState(boolean mMediaState) {
         this.mMediaState = mMediaState;
+    }
+
+    public int getMMusicState() {
+        return mMusicState;
+    }
+
+    public void setMMusicState(int mMusicState) {
+        this.mMusicState = mMusicState;
     }
 
     public MediaPlayer getMMediaPlayer() {

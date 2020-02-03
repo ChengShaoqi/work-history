@@ -72,7 +72,9 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
                     mMusicName.setText(mMusicMetaData.getMMusicName());
                     mSingerName.setText(mMusicMetaData.getMSingerName());
                     mMusicState.setImageResource(((MyApplication) getApplication()).getMMediaState() ?
-                            R.mipmap.pause_music : R.mipmap.start_music);
+                            ((MyApplication) getApplication()).getMMusicState() == MusicService.MEDIA_PLAYER_PAUSE ?
+                                    R.mipmap.start_music : R.mipmap.pause_music :
+                            R.mipmap.start_music);
                     break;
             }
         }
@@ -145,7 +147,8 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
                     ma.getMMusicService().initMediaPlayer(mMusicList.get(ma.getMPosition()).getMMusicPath());
                     mMusicState.setImageResource(R.mipmap.pause_music);
                 } else {
-                    int musicState = ma.getMMusicService().changeMusicState();
+                    ma.getMMusicService().changeMusicState();
+                    int musicState =  ((MyApplication)getApplication()).getMMusicState();
                     if (musicState == MEDIA_PLAYER_PAUSE) {
                         mMusicState.setImageResource(R.mipmap.start_music);
                     } else {
@@ -300,16 +303,29 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "onItemClick: 点击了第" + position + "处item");
                 mMusicState.setImageResource(R.mipmap.pause_music);
+                Log.i(TAG, "onItemClick: ((MyApplication) getApplication()).getMMediaState() :" +
+                        ((MyApplication) getApplication()).getMMediaState() + "\n" +
+                        "onItemClick: ((MyApplication) getApplication()).getMMusicState() :" +
+                        ((MyApplication) getApplication()).getMMusicState());
+
                 int hitTime = 1;
-
+                //如果，不进行重新播放该歌曲
                 if (position == ((MyApplication) getApplication()).getMPosition() && position != 0) {
-                    initBottomDisplayUi(((MyApplication) getApplication()).getMPosition());
-
+//                    initBottomDisplayUi(((MyApplication) getApplication()).getMPosition());
+                    Log.i(TAG, "onItemClick:(持续点击同一首歌) ((MyApplication) getApplication()).getMMediaState() :" +
+                            ((MyApplication) getApplication()).getMMediaState() + "\n" +
+                            "onItemClick: ((MyApplication) getApplication()).getMMusicState() :" +
+                            ((MyApplication) getApplication()).getMMusicState());
                 } else {
                     ((MyApplication) getApplication()).setMPosition(position);
                     Log.d(TAG, "onItemClick: getPosition()" + ((MyApplication) getApplication()).getMPosition());
-                    initBottomDisplayUi(((MyApplication) getApplication()).getMPosition());
                     startDisplayMusic(((MyApplication) getApplication()).getMPosition());
+                    Log.i(TAG, "onItemClick:(点击另一首歌) ((MyApplication) getApplication()).getMMediaState() :" +
+                            ((MyApplication) getApplication()).getMMediaState() + "\n" +
+                            "onItemClick: ((MyApplication) getApplication()).getMMusicState() :" +
+                            ((MyApplication) getApplication()).getMMusicState());
+                    initBottomDisplayUi(((MyApplication) getApplication()).getMPosition());
+
 //                    mMediaState = true;
 //                    ((MyApplication) getApplication()).setMMediaState(mMediaState);
                 }
