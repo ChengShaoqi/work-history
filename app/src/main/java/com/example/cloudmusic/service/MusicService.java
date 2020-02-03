@@ -98,6 +98,7 @@ public class MusicService extends Service {
 
     // 上一曲
     public boolean preMusic() {
+        ((MyApplication)getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
         int currentPosition = ((MyApplication) getApplication()).getMPosition();
         if (currentPosition == 0) {
             initMediaPlayer(mMusicList.get(mMusicList.size() - 1).getMMusicPath());
@@ -115,6 +116,7 @@ public class MusicService extends Service {
 
     //下一曲
     public boolean nextMusic() {
+        ((MyApplication)getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
         int currentPosition = ((MyApplication) getApplication()).getMPosition();
         if (currentPosition == (mMusicList.size() - 1)) {
             initMediaPlayer(mMusicList.get(0).getMMusicPath());

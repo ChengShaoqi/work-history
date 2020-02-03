@@ -127,11 +127,16 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void renderView() {
+        Music music = mMusicList.get(((MyApplication) getApplication()).getMPosition());
+        ((MyApplication) getApplication()).getMMusicService().getMetaData(music.getMMusicPath());
+        mMusicMetaData = ((MyApplication) getApplication()).getMMusicMetaData();
+
         mTitleTv.setText(mMusicMetaData.getMMusicName());
         mArtistTv.setText(mMusicMetaData.getMSingerName());
         mMusicImageIv.setImageBitmap(mMusicMetaData.getMMusicCoverImage());
         mMusicImageIv.playAnim();
 
+        Log.i(TAG, "renderView: " + mMediaState);
         if (mMediaState) {
             int musicState = ((MyApplication) getApplication()).getMMusicState();
             if (musicState == MusicService.MEDIA_PLAYER_PAUSE) {

@@ -96,6 +96,8 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
 
 
         initBottomDisplayUi(((MyApplication) getApplication()).getMPosition());
+        Log.i(TAG, "onCreate: " + mMusicMetaData.getMMusicName());
+
 //        Music music = mMusicList.get(((MyApplication) getApplication()).getMPosition());
 //        mMusicMetaData = ((MyApplication) getApplication()).getMMusicService().getMetaData(music.getMMusicPath());
 //        mMusicImage.setImageBitmap(mMusicMetaData.getMMusicCoverImage());
@@ -118,7 +120,9 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
 
     @Override
     protected void onStart() {
-//        initBottomDisplayUi(((MyApplication) getApplication()).getMPosition());
+        initBottomDisplayUi(((MyApplication) getApplication()).getMPosition());
+        Log.i(TAG, "onStart: " + mMusicMetaData.getMMusicName());
+
         super.onStart();
     }
 

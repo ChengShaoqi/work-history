@@ -110,7 +110,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         mMusicDbHelper = new MusicDbHelper(this, "MusicStore.db", null, 1);
         initDatabaseData();
 
