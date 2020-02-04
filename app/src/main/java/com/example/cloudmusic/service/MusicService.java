@@ -2,20 +2,19 @@ package com.example.cloudmusic.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.cloudmusic.MusicMetaData;
 import com.example.cloudmusic.MyApplication;
-import com.example.cloudmusic.R;
+import com.example.cloudmusic.activity.LocalMusicActivity;
+import com.example.cloudmusic.activity.MainActivity;
+import com.example.cloudmusic.activity.MusicDetailActivity;
 import com.example.cloudmusic.item.Music;
 
 import java.io.IOException;
@@ -34,7 +33,30 @@ public class MusicService extends Service {
     private MediaMetadataRetriever mMediaMetadataRetriever = new MediaMetadataRetriever();
     private List<Music> mMusicList = new ArrayList<>();
 
+    public static MainActivityCallback mMainActivityCallback;
+    public static LocalMusicActivityCallback mLocalMusicActivityCallback;
+    public static MusicDetailActivityCallback mMusicDetailActivityCallback;
+
     public MusicService() {
+    }
+
+//    public MusicService(MainActivityCallback mainActivityCallback, LocalMusicActivityCallback localMusicActivityCallback,
+//                        MusicDetailActivityCallback musicDetailActivityCallback) {
+//        this.mMainActivityCallback = mainActivityCallback;
+//        this.mLocalMusicActivityCallback = localMusicActivityCallback;
+//        this.mMusicDetailActivityCallback = musicDetailActivityCallback;
+//    }
+
+    public void setMainActivityCallback(MainActivityCallback mainActivityCallback) {
+        mMainActivityCallback = mainActivityCallback;
+    }
+
+    public void setLocalMusicActivityCallback(LocalMusicActivityCallback localMusicActivityCallback) {
+        mLocalMusicActivityCallback = localMusicActivityCallback;
+    }
+
+    public void setMusicDetailActivityCallback(MusicDetailActivityCallback musicDetailActivityCallback) {
+        mMusicDetailActivityCallback = musicDetailActivityCallback;
     }
 
     @Override
@@ -44,6 +66,8 @@ public class MusicService extends Service {
         mMediaPlayer = new MediaPlayer();
         ((MyApplication) getApplication()).setMMediaPlayer(mMediaPlayer);
         Log.i(TAG, "onCreate: musicService的list" + mMusicList);
+
+
     }
 
     public MusicMetaData getMetaData(String path) {
@@ -58,29 +82,48 @@ public class MusicService extends Service {
         String time = timeParse(duration);
         Log.d(TAG, "duration:" + time);
         MusicMetaData musicMetaData = new MusicMetaData(bitmap, title, artist, time);
-        ((MyApplication)getApplication()).setMMusicMetaData(musicMetaData);
+        ((MyApplication) getApplication()).setMMusicMetaData(musicMetaData);
         return musicMetaData;
     }
 
     //初始化MediaPlayer并播放指定位置的音乐
-    public void initMediaPlayer(String path) {
+    public void initMediaPlayerAndPlayMusic(String path) {
         mMediaPlayer.reset();
         try {
             //在build.gradle(app)改为targetSdkVersion 22（不然会出现FileNotFoundException）
             mMediaPlayer.setDataSource(path);
             mMediaPlayer.prepare();
         } catch (IOException e) {
-            Log.e(TAG, "initMediaPlayer: 初始化音源异常", e);
+            Log.e(TAG, "initMediaPlayerAndPlayMusic: 初始化音源异常", e);
         }
         mMediaPlayer.start();
-        ((MyApplication)getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
-        ((MyApplication)getApplication()).setMMediaState(true);
+        ((MyApplication) getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
+        ((MyApplication) getApplication()).setMMediaState(true);
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer arg0) {
-                mMediaPlayer.start();
-                ((MyApplication)getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
-                mMediaPlayer.setLooping(true);
+//                mMediaPlayer.start();
+//                ((MyApplication)getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
+//                mMediaPlayer.setLooping(true);
+
+                nextMusic();
+                int currentActivity = ((MyApplication) getApplication()).getMCurrentActivity();
+                if (currentActivity == MainActivity.MAIN_ACTIVITY_STATE_CODE) {
+                    //更新MainActivity底部栏UI
+                    mMainActivityCallback.updateBottomUi();
+                } else if (currentActivity == LocalMusicActivity.LOCAL_MUSIC_ACTIVITY_STATE_CODE) {
+                    //更新LocalMusicActivity底部栏UI
+                    mLocalMusicActivityCallback.updateBottomUi();
+                } else if (currentActivity == MusicDetailActivity.MUSIC_DETAIL_ACTIVITY_STATE_CODE) {
+                    if (MusicDetailActivity.mCurrentDisplayStateCode == MusicDetailActivity.MUSIC_DETAIL_ACTIVITY_MUSIC_DATA_STATE_CODE) {
+                        //更新MusicDetailActivity页面UI
+                        mMusicDetailActivityCallback.updateActivityUi();
+                    } else if (MusicDetailActivity.mCurrentDisplayStateCode == MusicDetailActivity.MUSIC_DETAIL_ACTIVITY_LRC_STATE_CODE) {
+                        //更新MusicDetailActivity页面UI和歌词UI
+                        mMusicDetailActivityCallback.updateLrcViewUi();
+                        mMusicDetailActivityCallback.updateActivityUi();
+                    }
+                }
             }
         });
     }
@@ -89,24 +132,24 @@ public class MusicService extends Service {
     public void changeMusicState() {
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.pause();
-            ((MyApplication)getApplication()).setMMusicState(MEDIA_PLAYER_PAUSE);
+            ((MyApplication) getApplication()).setMMusicState(MEDIA_PLAYER_PAUSE);
         } else {
             mMediaPlayer.start();
-            ((MyApplication)getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
+            ((MyApplication) getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
         }
     }
 
     // 上一曲
     public boolean preMusic() {
-        ((MyApplication)getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
+        ((MyApplication) getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
         int currentPosition = ((MyApplication) getApplication()).getMPosition();
         if (currentPosition == 0) {
-            initMediaPlayer(mMusicList.get(mMusicList.size() - 1).getMMusicPath());
+            initMediaPlayerAndPlayMusic(mMusicList.get(mMusicList.size() - 1).getMMusicPath());
             ((MyApplication) getApplication()).setMPosition(mMusicList.size() - 1);
             return true;
         } else if (currentPosition > 0) {
             Log.i(TAG, "preMusic: mMusicList" + mMusicList);
-            initMediaPlayer(mMusicList.get(currentPosition - 1).getMMusicPath());
+            initMediaPlayerAndPlayMusic(mMusicList.get(currentPosition - 1).getMMusicPath());
             ((MyApplication) getApplication()).setMPosition(currentPosition - 1);
             return true;
         } else {
@@ -116,14 +159,14 @@ public class MusicService extends Service {
 
     //下一曲
     public boolean nextMusic() {
-        ((MyApplication)getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
+        ((MyApplication) getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
         int currentPosition = ((MyApplication) getApplication()).getMPosition();
         if (currentPosition == (mMusicList.size() - 1)) {
-            initMediaPlayer(mMusicList.get(0).getMMusicPath());
+            initMediaPlayerAndPlayMusic(mMusicList.get(0).getMMusicPath());
             ((MyApplication) getApplication()).setMPosition(0);
             return true;
         } else if (currentPosition < (mMusicList.size() - 1)) {
-            initMediaPlayer(mMusicList.get(currentPosition + 1).getMMusicPath());
+            initMediaPlayerAndPlayMusic(mMusicList.get(currentPosition + 1).getMMusicPath());
             ((MyApplication) getApplication()).setMPosition(currentPosition + 1);
             return true;
         } else {
@@ -135,7 +178,7 @@ public class MusicService extends Service {
         return mMediaPlayer.isPlaying();
     }
 
-    public int getCurrentPosition(){
+    public int getCurrentPosition() {
         return mMediaPlayer.getCurrentPosition();
     }
 
@@ -187,5 +230,17 @@ public class MusicService extends Service {
         return time;
     }
 
+    public interface MainActivityCallback {
+        void updateBottomUi();
+    }
 
+    public interface LocalMusicActivityCallback {
+        void updateBottomUi();
+    }
+
+    public interface MusicDetailActivityCallback {
+        void updateActivityUi();
+
+        void updateLrcViewUi();
+    }
 }

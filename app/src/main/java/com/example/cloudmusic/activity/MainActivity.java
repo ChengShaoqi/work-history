@@ -19,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -45,8 +44,10 @@ import java.util.List;
 
 import static com.example.cloudmusic.service.MusicService.MEDIA_PLAYER_PAUSE;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, FindFragment.IFindFragmentCallBack, MineFragment.IMineFragmentCallBack {
+public class MainActivity extends BaseActivity implements View.OnClickListener, FindFragment.IFindFragmentCallBack,
+        MineFragment.IMineFragmentCallBack, MusicService.MainActivityCallback {
     private static final String TAG = "csqMainActivity";
+    public static final int MAIN_ACTIVITY_STATE_CODE = 1;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
     private ViewPager mMainActivityViewPager;
@@ -74,13 +75,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private ImageView mMusicState;
     private ImageView mNextMusic;
     private List<Music> mMusicList = new ArrayList<>();
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            initBottomDisplayUi();
-        }
-    };
     private int[] mRankListImageResId = {
             R.mipmap.ranklist_acg,
             R.mipmap.ranklist_first,
@@ -95,6 +89,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             MusicService.LocalBinder localBinder = (MusicService.LocalBinder) service;
             mMusicService = localBinder.getService();
             ((MyApplication) getApplication()).setMMusicService(mMusicService);
+            mMusicService.setMainActivityCallback(MainActivity.this);
             Log.i(TAG, "onServiceConnected: " + mMusicService);
             initBottomDisplayUi();
         }
@@ -110,6 +105,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         mMusicDbHelper = new MusicDbHelper(this, "MusicStore.db", null, 1);
         initDatabaseData();
 
@@ -124,11 +121,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         startService(intent);
         bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
         ((MyApplication) getApplication()).setMServiceConnection(mServiceConnection);
+        ((MyApplication) getApplication()).setMCurrentActivity(MAIN_ACTIVITY_STATE_CODE);
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
+        ((MyApplication) getApplication()).setMCurrentActivity(MAIN_ACTIVITY_STATE_CODE);
         initBottomDisplayUi();
     }
 
@@ -169,11 +168,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 MyApplication ma = ((MyApplication) getApplication());
                 Log.i(TAG, "onClick: 改变播放状态按钮" + ma.getMMusicService());
                 if (!ma.getMMediaState()) {
-                    ma.getMMusicService().initMediaPlayer(mMusicList.get(ma.getMPosition()).getMMusicPath());
+                    ma.getMMusicService().initMediaPlayerAndPlayMusic(mMusicList.get(ma.getMPosition()).getMMusicPath());
                     mMusicState.setImageResource(R.mipmap.pause_music);
                 } else {
                     ma.getMMusicService().changeMusicState();
-                    int musicState =  ((MyApplication)getApplication()).getMMusicState();
+                    int musicState = ((MyApplication) getApplication()).getMMusicState();
                     if (musicState == MEDIA_PLAYER_PAUSE) {
                         mMusicState.setImageResource(R.mipmap.start_music);
                     } else {
@@ -185,6 +184,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.next_music:
                 ((MyApplication) getApplication()).getMMusicService().nextMusic();
                 initBottomDisplayUi();
+
 //                Toast.makeText(this, "点击了下一首", Toast.LENGTH_SHORT).show();
                 break;
             default:
@@ -221,10 +221,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 "/sdcard/netease/cloudmusic/Music/许嵩 - 明智之举.mp3"};
 
         mLyricPath = new String[]{
-                "/sdcard/tencent/qqfile_recv/许嵩 - 大千世界.lrc",
-                "/sdcard/tencent/qqfile_recv/许嵩 - 平行宇宙.lrc",
-                "/sdcard/tencent/qqfile_recv/许嵩 - 江湖.lrc",
-                "/sdcard/tencent/qqfile_recv/许嵩 - 明智之举.lrc"
+                "/sdcard/tencent/qqfile_recv/xs_dqsj.lrc",
+                "/sdcard/tencent/qqfile_recv/xs_pxyz.lrc",
+                "/sdcard/tencent/qqfile_recv/xs_jh.lrc",
+                "/sdcard/tencent/qqfile_recv/xs_mzzj.lrc"
         };
         mMusicList = queryMusicData();
         if (mMusicList.size() == mMusicPathList.length) {
@@ -396,6 +396,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void updateMineFragmentUi(ListView listView) {
 
+    }
+
+    @Override
+    public void updateBottomUi() {
+        initBottomDisplayUi();
     }
 
     private class MyPagerChangeListener implements ViewPager.OnPageChangeListener {

@@ -22,7 +22,7 @@ public class MyApplication extends Application {
     private boolean mMediaState;
     private int mMusicState = MusicService.MEDIA_PLAYER_PAUSE;
     private MediaPlayer mMediaPlayer;
-
+    private int mCurrentActivity;
 
     public List<Music> getMMusicList() {
         return mMusicList;
@@ -103,5 +103,13 @@ public class MyApplication extends Application {
 
     public void setMMediaPlayer(MediaPlayer mMediaPlayer) {
         this.mMediaPlayer = mMediaPlayer;
+    }
+
+    public int getMCurrentActivity() {
+        return mCurrentActivity;
+    }
+
+    public void setMCurrentActivity(int mCurrentActivity) {
+        this.mCurrentActivity = mCurrentActivity;
     }
 }

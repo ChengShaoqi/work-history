@@ -8,11 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -31,7 +27,6 @@ import com.example.cloudmusic.MusicMetaData;
 import com.example.cloudmusic.MyApplication;
 import com.example.cloudmusic.R;
 import com.example.cloudmusic.adapter.LocalMusicAdapter;
-import com.example.cloudmusic.db.MusicDbHelper;
 import com.example.cloudmusic.fragment.LocalMusicFragment;
 import com.example.cloudmusic.fragment.LocalMusicOtherFragment;
 import com.example.cloudmusic.item.Music;
@@ -43,8 +38,10 @@ import java.util.List;
 
 import static com.example.cloudmusic.service.MusicService.MEDIA_PLAYER_PAUSE;
 
-public class LocalMusicActivity extends AppCompatActivity implements LocalMusicFragment.ILocalMusicCallback, View.OnClickListener {
+public class LocalMusicActivity extends AppCompatActivity implements LocalMusicFragment.ILocalMusicCallback, View.OnClickListener,
+        MusicService.LocalMusicActivityCallback {
     private static final String TAG = "csqLocalMusicActivity";
+    public static final int LOCAL_MUSIC_ACTIVITY_STATE_CODE = 2;
     private List<String> mTitleList;
     private List<Fragment> mFragmentList;
     private List<Music> mMusicList = new ArrayList<>();
@@ -95,7 +92,7 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
         initViewData();
 
 
-        initBottomDisplayUi(((MyApplication) getApplication()).getMPosition());
+        initBottomDisplayUi();
         Log.i(TAG, "onCreate: " + mMusicMetaData.getMMusicName());
 
 //        Music music = mMusicList.get(((MyApplication) getApplication()).getMPosition());
@@ -120,9 +117,9 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
 
     @Override
     protected void onStart() {
-        initBottomDisplayUi(((MyApplication) getApplication()).getMPosition());
+        initBottomDisplayUi();
         Log.i(TAG, "onStart: " + mMusicMetaData.getMMusicName());
-
+        ((MyApplication)getApplication()).setMCurrentActivity(LOCAL_MUSIC_ACTIVITY_STATE_CODE);
         super.onStart();
     }
 
@@ -142,13 +139,13 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
                 break;
             case R.id.pre_music:
                 ((MyApplication) getApplication()).getMMusicService().preMusic();
-                initBottomDisplayUi(((MyApplication) getApplication()).getMPosition());
+                initBottomDisplayUi();
                 break;
             case R.id.music_state_button:
                 MyApplication ma = ((MyApplication) getApplication());
                 Log.i(TAG, "onClick: 改变播放状态按钮" + ma.getMMusicService());
                 if (!ma.getMMediaState()) {
-                    ma.getMMusicService().initMediaPlayer(mMusicList.get(ma.getMPosition()).getMMusicPath());
+                    ma.getMMusicService().initMediaPlayerAndPlayMusic(mMusicList.get(ma.getMPosition()).getMMusicPath());
                     mMusicState.setImageResource(R.mipmap.pause_music);
                 } else {
                     ma.getMMusicService().changeMusicState();
@@ -162,7 +159,7 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
                 break;
             case R.id.next_music:
                 ((MyApplication) getApplication()).getMMusicService().nextMusic();
-                initBottomDisplayUi(((MyApplication) getApplication()).getMPosition());
+                initBottomDisplayUi();
                 break;
             default:
                 break;
@@ -272,9 +269,10 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
         return super.onOptionsItemSelected(item);
     }
 
-    public void initBottomDisplayUi(int position) {
-        Music music = mMusicList.get(position);
+    public void initBottomDisplayUi() {
+        Music music = mMusicList.get(((MyApplication) getApplication()).getMPosition());
         mMusicService = ((MyApplication) getApplication()).getMMusicService();
+        mMusicService.setLocalMusicActivityCallback(LocalMusicActivity.this);
         mMusicService.getMetaData(music.getMMusicPath());
         mMusicMetaData = ((MyApplication) getApplication()).getMMusicMetaData();
         mHandler.sendEmptyMessage(1);
@@ -288,13 +286,13 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
 //
 //            mHandler.sendEmptyMessage(2);
 //        }
-//        ((MyApplication) getApplication()).getMMusicService().initMediaPlayer(music.getMMusicPath());
+//        ((MyApplication) getApplication()).getMMusicService().initMediaPlayerAndPlayMusic(music.getMMusicPath());
 
     }
 
     public void startDisplayMusic(int position) {
         Music music = mMusicList.get(position);
-        ((MyApplication) getApplication()).getMMusicService().initMediaPlayer(music.getMMusicPath());
+        ((MyApplication) getApplication()).getMMusicService().initMediaPlayerAndPlayMusic(music.getMMusicPath());
     }
 
     @Override
@@ -328,7 +326,7 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
                             ((MyApplication) getApplication()).getMMediaState() + "\n" +
                             "onItemClick: ((MyApplication) getApplication()).getMMusicState() :" +
                             ((MyApplication) getApplication()).getMMusicState());
-                    initBottomDisplayUi(((MyApplication) getApplication()).getMPosition());
+                    initBottomDisplayUi();
 
 //                    mMediaState = true;
 //                    ((MyApplication) getApplication()).setMMediaState(mMediaState);
@@ -343,5 +341,10 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
 //                mHandler.sendMessage(message);
             }
         });
+    }
+
+    @Override
+    public void updateBottomUi() {
+        initBottomDisplayUi();
     }
 }

@@ -12,4 +12,5 @@
     <color name="white">#ffffff</color>
     <color name="transparentBackground">#00053E8D</color>
     <color name="white_text">#fafafa</color>
+    <color name="green">#31c17d</color>
 </resources>

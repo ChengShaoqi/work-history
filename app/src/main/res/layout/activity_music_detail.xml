@@ -80,13 +80,20 @@
                     android:layout_centerInParent="true"/>
 
 
-                <me.wcy.lrcview.LrcView
+                <com.example.cloudmusic.LrcView
                     android:id="@+id/lrc_view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:lrcAnimationDuration="1000"
-                    app:lrcLabel="无法解析歌词"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    app:lrcMode="KARAOKE"
+                    android:layout_height="match_parent"/>
+
+<!--                <me.wcy.lrcview.LrcView-->
+<!--                    android:id="@+id/lrc_view"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    app:lrcAnimationDuration="1000"-->
+<!--                    app:lrcLabel="无法解析歌词"-->
+<!--                    android:visibility="gone"/>-->
 
 <!--                <include-->
 <!--                    layout="@layout/fragment_lyric"-->

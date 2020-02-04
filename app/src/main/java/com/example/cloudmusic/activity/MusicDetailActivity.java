@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.example.cloudmusic.LrcView;
 import com.example.cloudmusic.MusicMetaData;
 import com.example.cloudmusic.MyApplication;
 import com.example.cloudmusic.R;
@@ -25,15 +26,22 @@ import com.example.cloudmusic.other.CircleImageView;
 import com.example.cloudmusic.service.MusicService;
 
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
-import me.wcy.lrcview.LrcView;
 
 import static com.example.cloudmusic.service.MusicService.MEDIA_PLAYER_PAUSE;
 
-public class MusicDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class MusicDetailActivity extends AppCompatActivity implements View.OnClickListener, MusicService.MusicDetailActivityCallback {
     private static final String TAG = "csqMusicDetailActivity";
+    public static final int MUSIC_DETAIL_ACTIVITY_STATE_CODE = 3;
+    public static int mCurrentDisplayStateCode;
+    public static final int MUSIC_DETAIL_ACTIVITY_MUSIC_DATA_STATE_CODE = 4;
+    public static final int MUSIC_DETAIL_ACTIVITY_LRC_STATE_CODE = 5;
     private MusicMetaData mMusicMetaData;
     private MediaPlayer mMediaPlayer;
     private TextView mTitleTv;
@@ -49,12 +57,17 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
     private LrcView mLrcView;
     private List<Music> mMusicList;
     private Handler mHandler = new Handler();
+    private MusicService mMusicService;
+    private String[] mLrcNames = new String[]{"许嵩 - 大千世界.lrc", "许嵩 - 平行宇宙.lrc", "许嵩 - 江湖.lrc", "许嵩 - 明智之举.lrc"};
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_detail);
+
+        mMusicService = ((MyApplication) getApplication()).getMMusicService();
+        mMusicService.setMusicDetailActivityCallback(this);
 
         mMusicMetaData = ((MyApplication) getApplication()).getMMusicMetaData();
         mMusicList = ((MyApplication) getApplication()).getMMusicList();
@@ -80,7 +93,14 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         initView();
 
         //填充内容
-        renderView();
+        renderMusicMetaDataAndSeekBarView();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ((MyApplication) getApplication()).setMCurrentActivity(MUSIC_DETAIL_ACTIVITY_STATE_CODE);
+        mCurrentDisplayStateCode = MUSIC_DETAIL_ACTIVITY_MUSIC_DATA_STATE_CODE;
     }
 
     private void initView() {
@@ -126,7 +146,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void renderView() {
+    private void renderMusicMetaDataAndSeekBarView() {
         Music music = mMusicList.get(((MyApplication) getApplication()).getMPosition());
         ((MyApplication) getApplication()).getMMusicService().getMetaData(music.getMMusicPath());
         mMusicMetaData = ((MyApplication) getApplication()).getMMusicMetaData();
@@ -136,7 +156,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         mMusicImageIv.setImageBitmap(mMusicMetaData.getMMusicCoverImage());
         mMusicImageIv.playAnim();
 
-        Log.i(TAG, "renderView: " + mMediaState);
+        Log.i(TAG, "renderMusicMetaDataAndSeekBarView: " + mMediaState);
         if (mMediaState) {
             int musicState = ((MyApplication) getApplication()).getMMusicState();
             if (musicState == MusicService.MEDIA_PLAYER_PAUSE) {
@@ -185,49 +205,118 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         switch (id) {
             case R.id.circle_image_view:
                 mMusicImageIv.setVisibility(View.GONE);
+                renderLrcView();
                 mLrcView.setVisibility(View.VISIBLE);
-                File lyricFile = new File(mMusicList.get((((MyApplication) getApplication()).getMPosition())).getMLyricPath());
-                Log.d(TAG, "onClick: 歌词" + lyricFile.getAbsolutePath());
-                mLrcView.loadLrc(lyricFile);
-
-                Log.i(TAG, "onClick: " + mLrcView.hasLrc());
-
-                if (mLrcView.hasLrc()) {
-                    mLrcView.onDrag(mMediaPlayer.getCurrentPosition());
-                } else {
-                    mLrcView.setLabel("暂无歌词");
-                }
+                mCurrentDisplayStateCode = MUSIC_DETAIL_ACTIVITY_LRC_STATE_CODE;
                 break;
             case R.id.lrc_view:
                 mLrcView.setVisibility(View.GONE);
                 mMusicImageIv.setVisibility(View.VISIBLE);
+                mCurrentDisplayStateCode = MUSIC_DETAIL_ACTIVITY_MUSIC_DATA_STATE_CODE;
                 break;
             case R.id.playing_pre:
                 ((MyApplication) getApplication()).getMMusicService().preMusic();
-                renderView();
+                renderMusicMetaDataAndSeekBarView();
+                renderLrcView();
                 break;
             case R.id.playing_play:
                 MyApplication ma = ((MyApplication) getApplication());
                 Log.i(TAG, "onClick: 改变播放状态按钮" + ma.getMMusicService());
                 if (!ma.getMMediaState()) {
-                    ma.getMMusicService().initMediaPlayer(mMusicList.get(ma.getMPosition()).getMMusicPath());
+                    ma.getMMusicService().initMediaPlayerAndPlayMusic(mMusicList.get(ma.getMPosition()).getMMusicPath());
                     mMusicStateIv.setImageResource(R.mipmap.pause_music);
                 } else {
                     ma.getMMusicService().changeMusicState();
                     int musicState = ((MyApplication) getApplication()).getMMusicState();
                     if (musicState == MEDIA_PLAYER_PAUSE) {
                         mMusicStateIv.setImageResource(R.drawable.play_rdi_btn_play);
+                        mMusicImageIv.pauseAnim();
                     } else {
                         mMusicStateIv.setImageResource(R.drawable.play_rdi_btn_pause);
+                        mMusicImageIv.playAnim();
                     }
                 }
                 break;
             case R.id.playing_next:
                 ((MyApplication) getApplication()).getMMusicService().nextMusic();
-                renderView();
+                renderMusicMetaDataAndSeekBarView();
+                renderLrcView();
                 break;
             default:
                 break;
         }
+    }
+
+    private void renderLrcView() {
+        int currentPosition = (((MyApplication) getApplication()).getMPosition());
+        //从assets目录下读取歌词文件内容
+        String lrcStr = getFromAssets(mLrcNames[currentPosition]);
+        Log.d(TAG, "onClick: " + lrcStr);
+        mLrcView.setLrc(lrcStr);
+        mLrcView.setPlayer(mMediaPlayer);
+        mLrcView.init();
+    }
+
+
+    /**
+     * 从assets目录下读取歌词文件内容
+     *
+     * @param fileName
+     * @return
+     */
+    public String getFromAssets(String fileName) {
+        try {
+            InputStreamReader inputReader = new InputStreamReader(getResources().getAssets().open(fileName));
+            BufferedReader bufReader = new BufferedReader(inputReader);
+            String line = "";
+            StringBuilder result = new StringBuilder();
+            while ((line = bufReader.readLine()) != null) {
+                if (line.trim().equals(""))
+                    continue;
+                result.append(line).append("\r\n");
+            }
+            return result.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    private static String readString(File file) {
+
+        int len = 0;
+        StringBuilder str = new StringBuilder();
+        try {
+            FileInputStream is = new FileInputStream(file);
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader in = new BufferedReader(isr);
+
+            String line;
+            while ((line = in.readLine()) != null) {
+                if (len != 0)  // 处理换行符的问题
+                {
+                    str.append("\r\n").append(line);
+                } else {
+                    str.append(line);
+                }
+                len++;
+            }
+            in.close();
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str.toString();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public void updateActivityUi() {
+        renderMusicMetaDataAndSeekBarView();
+    }
+
+    @Override
+    public void updateLrcViewUi() {
+        renderLrcView();
     }
 }
