@@ -13,4 +13,6 @@
     <color name="transparentBackground">#00053E8D</color>
     <color name="white_text">#fafafa</color>
     <color name="green">#31c17d</color>
+    <color name="filling_thin_line_color">#FBFBFB</color>
+    <color name="filling_thick_line_color">#F5F5F5</color>
 </resources>

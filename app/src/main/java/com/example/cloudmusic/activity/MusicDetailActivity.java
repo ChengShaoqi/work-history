@@ -27,9 +27,6 @@ import com.example.cloudmusic.service.MusicService;
 
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
@@ -75,6 +72,17 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         Log.i(TAG, "音乐播放页面的播放状态是：" + mMediaState);
         mMediaPlayer = ((MyApplication) getApplication()).getMMediaPlayer();
 
+        //初始化Toolbar
+        initToolbar();
+
+        //初始化控件
+        initView();
+
+        //填充内容
+        renderMusicMetaDataAndSeekBarView();
+    }
+
+    private void initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -88,12 +96,6 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
                 }
             });
         }
-
-        //初始化控件
-        initView();
-
-        //填充内容
-        renderMusicMetaDataAndSeekBarView();
     }
 
     @Override
@@ -257,18 +259,16 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         mLrcView.init();
     }
 
-
     /**
      * 从assets目录下读取歌词文件内容
-     *
      * @param fileName
-     * @return
+     * @return result
      */
     public String getFromAssets(String fileName) {
         try {
             InputStreamReader inputReader = new InputStreamReader(getResources().getAssets().open(fileName));
             BufferedReader bufReader = new BufferedReader(inputReader);
-            String line = "";
+            String line;
             StringBuilder result = new StringBuilder();
             while ((line = bufReader.readLine()) != null) {
                 if (line.trim().equals(""))
@@ -282,32 +282,32 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         return "";
     }
 
-    private static String readString(File file) {
-
-        int len = 0;
-        StringBuilder str = new StringBuilder();
-        try {
-            FileInputStream is = new FileInputStream(file);
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader in = new BufferedReader(isr);
-
-            String line;
-            while ((line = in.readLine()) != null) {
-                if (len != 0)  // 处理换行符的问题
-                {
-                    str.append("\r\n").append(line);
-                } else {
-                    str.append(line);
-                }
-                len++;
-            }
-            in.close();
-            is.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return str.toString();
-    }
+//    private static String readString(File file) {
+//
+//        int len = 0;
+//        StringBuilder str = new StringBuilder();
+//        try {
+//            FileInputStream is = new FileInputStream(file);
+//            InputStreamReader isr = new InputStreamReader(is);
+//            BufferedReader in = new BufferedReader(isr);
+//
+//            String line;
+//            while ((line = in.readLine()) != null) {
+//                if (len != 0)  // 处理换行符的问题
+//                {
+//                    str.append("\r\n").append(line);
+//                } else {
+//                    str.append(line);
+//                }
+//                len++;
+//            }
+//            in.close();
+//            is.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return str.toString();
+//    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override

@@ -75,6 +75,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private ImageView mMusicState;
     private ImageView mNextMusic;
     private List<Music> mMusicList = new ArrayList<>();
+    private LinearLayout mSettingLayout;
     private int[] mRankListImageResId = {
             R.mipmap.ranklist_acg,
             R.mipmap.ranklist_first,
@@ -104,8 +105,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         mMusicDbHelper = new MusicDbHelper(this, "MusicStore.db", null, 1);
         initDatabaseData();
@@ -184,8 +183,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.next_music:
                 ((MyApplication) getApplication()).getMMusicService().nextMusic();
                 initBottomDisplayUi();
-
 //                Toast.makeText(this, "点击了下一首", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.setting_layout:
+                Intent intentToSettings = new Intent(this, SettingActivity.class);
+                startActivity(intentToSettings);
                 break;
             default:
                 break;
@@ -284,6 +286,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mPreMusic = findViewById(R.id.pre_music);
         mMusicState = findViewById(R.id.music_state_button);
         mNextMusic = findViewById(R.id.next_music);
+        mSettingLayout = findViewById(R.id.setting_layout);
 
         mIvBarMenu.setOnClickListener(this);
         mTvToolBarMine.setOnClickListener(this);
@@ -297,6 +300,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mNextMusic.setOnClickListener(this);
         //显示出导航栏每项图标
         mNavigationView.setItemIconTintList(null);
+        mSettingLayout.setOnClickListener(this);
     }
 
     private void initLoopPictureView() {
