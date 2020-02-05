@@ -1,26 +1,10 @@
 <resources>
     <string name="app_name">CloudMusic</string>
-    <string name="welcome_text">音樂的力量</string>
 
     <string name="toolbar_mine_text">我的</string>
     <string name="toolbar_find_text">发现</string>
     <string name="toolbar_cloud_village_text">云村</string>
     <string name="toolbar_video_text">视频</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
-
 
     <string name="nav_drawer_creator_center">创作者中心</string>
     <string name="nav_drawer_listen_to_get_songs">听歌识曲</string>
@@ -37,5 +21,32 @@
     <string name="nav_drawer_listen_to_songs_online_without_traffic">在线听歌免流量</string>
     <string name="nav_drawer_coupon">优惠券</string>
     <string name="nav_drawer_teen_mode">青少年模式</string>
+    <string name="nav_drawer_bottom_night_mode">夜间模式</string>
+    <string name="nav_drawer_bottom_setting">设置</string>
+    <string name="nav_drawer_bottom_quit">退出</string>
+
+    <string name="music_detail_activity_time_tv_default_text">00:00</string>
+
+    <string name="setting_activity_tv_setting">设置</string>
+    <string name="setting_activity_tv_network">网络</string>
+    <string name="setting_activity_tv_network_flow_display">使用2G/3G/4G网络播放</string>
+    <string name="setting_activity_tv_network_flow_download">使用2G/3G/4G网络下载</string>
+    <string name="setting_activity_tv_network_wifi_display">动态页中Wi-Fi下自动下载播放视频</string>
+    <string name="setting_activity_tv_network_wifi_continuous_display">视频页中Wi-Fi下连续播放</string>
+    <string name="fragment_local_music_paly_all">播放全部</string>
+    <string name="fragment_local_music_multiple_choice">多选</string>
+    <string name="fragment_find_handpicked_for_you">为您精挑细选</string>
+    <string name="fragment_find_recommended_song_list">推荐歌单</string>
+    <string name="fragment_find_live">直播</string>
+    <string name="fragment_find_radio_station">电台</string>
+    <string name="fragment_find_leader_board">排行榜</string>
+    <string name="fragment_find_song_list">歌单</string>
+    <string name="fragment_find_recommended_daily">每日推荐</string>
+    <string name="fragment_mine_local_music">本地音乐</string>
+    <string name="fragment_mine_download_management">下载管理</string>
+    <string name="fragment_mine_my_radio_station">我的电台</string>
+    <string name="fragment_mine_my_collection">我的收藏</string>
+    <string name="fragment_mine_follow_new_songs">关注新歌</string>
+
 
 </resources>

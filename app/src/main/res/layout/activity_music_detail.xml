@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/login_bg_night" />
+        android:src="@drawable/login_bg_night"
+        tools:ignore="ContentDescription" />
 
     <View
         android:layout_width="match_parent"
@@ -62,30 +64,22 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/default_margin_size"
                 android:orientation="horizontal">
-
-<!--                <ImageView-->
-<!--                    android:layout_width="263dp"-->
-<!--                    android:layout_height="263dp"-->
-<!--                    android:layout_centerHorizontal="true"-->
-<!--                    android:layout_marginTop="60dp"-->
-<!--                    android:scaleType="fitCenter"-->
-<!--                    android:src="@drawable/play_disc_halo" />-->
 
                 <com.example.cloudmusic.util.circleimageutil.CircleImageView
                     android:id="@+id/circle_image_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"/>
+                    android:layout_centerInParent="true" />
 
 
                 <com.example.cloudmusic.LrcView
                     android:id="@+id/lrc_view"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:visibility="gone"
-                    app:lrcMode="KARAOKE"
-                    android:layout_height="match_parent"/>
+                    app:lrcMode="KARAOKE" />
 
             </RelativeLayout>
 
@@ -116,7 +110,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:src="@drawable/play_rdi_icn_love" />
+                    android:src="@drawable/play_rdi_icn_love"
+                    tools:ignore="ContentDescription" />
 
                 <ImageView
                     android:id="@+id/playing_down"
@@ -124,7 +119,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:src="@drawable/play_icn_dlded_dis" />
+                    android:src="@drawable/play_icn_dlded_dis"
+                    tools:ignore="ContentDescription" />
 
                 <ImageView
                     android:id="@+id/playing_cmt"
@@ -132,7 +128,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:src="@drawable/play_icn_cmt_number_dis" />
+                    android:src="@drawable/play_icn_cmt_number_dis"
+                    tools:ignore="ContentDescription" />
 
                 <ImageView
                     android:id="@+id/playing_more"
@@ -140,7 +137,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:src="@drawable/play_icn_more" />
+                    android:src="@drawable/play_icn_more"
+                    tools:ignore="ContentDescription" />
             </LinearLayout>
 
             <LinearLayout
@@ -156,11 +154,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="end"
                     android:singleLine="true"
-                    android:text="00:00"
+                    android:text="@string/music_detail_activity_time_tv_default_text"
                     android:textColor="@color/white_text"
-                    android:textSize="10sp" />
+                    android:textSize="@dimen/default_text_size" />
 
                 <SeekBar
                     android:id="@+id/play_seek"
@@ -182,9 +180,9 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:singleLine="true"
-                    android:text="00:00"
+                    android:text="@string/music_detail_activity_time_tv_default_text"
                     android:textColor="@color/white_text"
-                    android:textSize="10sp" />
+                    android:textSize="@dimen/default_text_size" />
             </LinearLayout>
 
             <LinearLayout
@@ -198,7 +196,8 @@
                     android:layout_height="3dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:src="@drawable/play_icn_loop_prs" />
+                    android:src="@drawable/play_icn_loop_prs"
+                    tools:ignore="contentDescription" />
 
                 <ImageView
                     android:id="@+id/playing_pre"
@@ -206,7 +205,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:src="@drawable/play_btn_prev" />
+                    android:src="@drawable/play_btn_prev"
+                    tools:ignore="contentDescription" />
 
                 <ImageView
                     android:id="@+id/playing_play"
@@ -214,7 +214,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                        android:src="@drawable/play_rdi_btn_play" />
+                    android:src="@drawable/play_rdi_btn_play"
+                    tools:ignore="contentDescription" />
 
                 <ImageView
                     android:id="@+id/playing_next"
@@ -222,7 +223,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:src="@drawable/play_btn_next" />
+                    android:src="@drawable/play_btn_next"
+                    tools:ignore="contentDescription" />
 
                 <ImageView
                     android:id="@+id/playing_playlist"
@@ -230,7 +232,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:src="@drawable/play_icn_src_prs" />
+                    android:src="@drawable/play_icn_src_prs"
+                    tools:ignore="contentDescription" />
 
             </LinearLayout>
         </LinearLayout>

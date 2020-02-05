@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,21 +8,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/default_margin_size"
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/setting_activity_back"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:id="@+id/setting_activity_back"
             android:layout_centerVertical="true"
-            android:src="@drawable/setting_activity_back"/>
+            android:src="@drawable/setting_activity_back"
+            tools:ignore="ContentDescription" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
+            android:layout_toEndOf="@+id/setting_activity_back"
             android:layout_toRightOf="@+id/setting_activity_back"
-            android:text="设置" />
+            android:text="@string/setting_activity_tv_setting" />
     </RelativeLayout>
 
     <LinearLayout
@@ -33,22 +37,25 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="网络"
-        android:textSize="10sp" />
+        android:layout_marginStart="@dimen/default_margin_size"
+        android:layout_marginLeft="@dimen/default_margin_size"
+        android:layout_marginTop="@dimen/default_margin_size"
+        android:text="@string/setting_activity_tv_network"
+        android:textSize="@dimen/default_text_size" />
 
     <RelativeLayout
         android:id="@+id/network_item_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/default_margin_size"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="使用2G/3G/4G网络播放" />
+            android:layout_toStartOf="@id/network_switch_1"
+            android:layout_toLeftOf="@id/network_switch_1"
+            android:text="@string/setting_activity_tv_network_flow_display" />
 
         <Switch
             android:id="@+id/network_switch_1"
@@ -67,13 +74,15 @@
         android:id="@+id/network_item_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/default_margin_size"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="使用2G/3G/4G网络下载" />
+            android:layout_toStartOf="@id/network_switch_2"
+            android:layout_toLeftOf="@id/network_switch_2"
+            android:text="@string/setting_activity_tv_network_flow_download" />
 
         <Switch
             android:id="@+id/network_switch_2"
@@ -92,13 +101,15 @@
         android:id="@+id/network_item_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/default_margin_size"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="动态页中Wi-Fi下自动下载播放视频" />
+            android:layout_toStartOf="@id/network_switch_3"
+            android:layout_toLeftOf="@id/network_switch_3"
+            android:text="@string/setting_activity_tv_network_wifi_display" />
 
         <Switch
             android:id="@+id/network_switch_3"
@@ -112,13 +123,15 @@
         android:id="@+id/network_item_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/default_margin_size"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="视频页中Wi-Fi下连续播放" />
+            android:layout_toStartOf="@id/network_switch_4"
+            android:layout_toLeftOf="@id/network_switch_4"
+            android:text="@string/setting_activity_tv_network_wifi_continuous_display" />
 
         <Switch
             android:id="@+id/network_switch_4"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/default_margin_size"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -19,15 +20,17 @@
 
             <ImageView
                 android:id="@+id/bottom_container_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@mipmap/recommend_icn_start_big" />
+                android:layout_width="@dimen/bottom_music_display_iv_size"
+                android:layout_height="@dimen/bottom_music_display_iv_size"
+                android:src="@mipmap/recommend_icn_start_big"
+                tools:ignore="contentDescription" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_marginStart="@dimen/half_of_default_margin_size"
+                android:layout_marginLeft="@dimen/half_of_default_margin_size"
                 android:layout_weight="1"
-                android:layout_marginLeft="5dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -46,24 +49,30 @@
 
         <ImageView
             android:id="@+id/pre_music"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="5dp"
-            android:src="@mipmap/pre_music" />
+            android:layout_width="@dimen/bottom_music_display_iv_size"
+            android:layout_height="@dimen/bottom_music_display_iv_size"
+            android:layout_marginStart="@dimen/half_of_default_margin_size"
+            android:layout_marginLeft="@dimen/half_of_default_margin_size"
+            android:src="@mipmap/pre_music"
+            tools:ignore="contentDescription" />
 
         <ImageView
             android:id="@+id/music_state_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="5dp"
-            android:src="@mipmap/start_music" />
+            android:layout_width="@dimen/bottom_music_display_iv_size"
+            android:layout_height="@dimen/bottom_music_display_iv_size"
+            android:layout_marginStart="@dimen/half_of_default_margin_size"
+            android:layout_marginLeft="@dimen/half_of_default_margin_size"
+            android:src="@mipmap/start_music"
+            tools:ignore="contentDescription" />
 
         <ImageView
             android:id="@+id/next_music"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="5dp"
-            android:src="@mipmap/next_music" />
+            android:layout_width="@dimen/bottom_music_display_iv_size"
+            android:layout_height="@dimen/bottom_music_display_iv_size"
+            android:layout_marginStart="@dimen/half_of_default_margin_size"
+            android:layout_marginLeft="@dimen/half_of_default_margin_size"
+            android:src="@mipmap/next_music"
+            tools:ignore="contentDescription" />
 
 
     </LinearLayout>

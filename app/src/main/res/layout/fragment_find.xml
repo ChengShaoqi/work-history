@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -7,106 +8,112 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager_picture"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="@dimen/fragment_find_viewPager_height" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/fragment_find_linearLayout_size"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/fragment_find_linearLayout_size"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_mei_ri_tui_jian"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:src="@mipmap/ic_mei_ri_tui_jian" />
+                android:layout_height="@dimen/fragment_find_image_default_size"
+                android:src="@mipmap/ic_mei_ri_tui_jian"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="每日推荐" />
+                android:text="@string/fragment_find_recommended_daily" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/fragment_find_linearLayout_size"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_ge_dan"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:src="@mipmap/ic_ge_dan" />
+                android:layout_height="@dimen/fragment_find_image_default_size"
+                android:src="@mipmap/ic_ge_dan"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="歌单" />
+                android:text="@string/fragment_find_song_list" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/fragment_find_linearLayout_size"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_pai_hang_bang"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:src="@mipmap/ic_pai_hang_bang" />
+                android:layout_height="@dimen/fragment_find_image_default_size"
+                android:src="@mipmap/ic_pai_hang_bang"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="排行榜" />
+                android:text="@string/fragment_find_leader_board" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/fragment_find_linearLayout_size"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_dian_tai"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:src="@mipmap/ic_dian_tai" />
+                android:layout_height="@dimen/fragment_find_image_default_size"
+                android:src="@mipmap/ic_dian_tai"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="电台" />
+                android:text="@string/fragment_find_radio_station" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/fragment_find_linearLayout_size"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_zhi_bo"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:src="@mipmap/ic_zhi_bo" />
+                android:layout_height="@dimen/fragment_find_image_default_size"
+                android:src="@mipmap/ic_zhi_bo"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="直播" />
+                android:text="@string/fragment_find_live" />
         </LinearLayout>
 
     </LinearLayout>
@@ -114,15 +121,17 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="推荐歌单"
+        android:layout_marginStart="@dimen/default_margin_size"
+        android:layout_marginLeft="@dimen/default_margin_size"
+        android:layout_marginTop="@dimen/default_margin_size"
+        android:text="@string/fragment_find_recommended_song_list"
         android:textColor="@color/initColor" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="@dimen/default_margin_size"
+        android:layout_marginLeft="@dimen/default_margin_size"
         android:orientation="horizontal">
 
 
@@ -131,7 +140,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="为您精挑细选"
+            android:text="@string/fragment_find_handpicked_for_you"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -139,14 +148,15 @@
             android:layout_width="80dp"
             android:layout_height="25dp"
             android:layout_gravity="end"
-            android:src="@mipmap/find_more" />
+            android:src="@mipmap/find_more"
+            tools:ignore="contentDescription" />
     </LinearLayout>
 
     <HorizontalScrollView
         android:id="@+id/HorizontalScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/fragment_find_horizontalScrollView_margin_size"
         android:scrollbars="none">
 
         <LinearLayout

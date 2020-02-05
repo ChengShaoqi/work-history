@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -15,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:id="@+id/layout_local_music"
@@ -28,13 +30,14 @@
                     android:id="@+id/iv_mei_ri_tui_jian"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:src="@mipmap/ic_local_music" />
+                    android:src="@mipmap/ic_local_music"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="本地音乐"
+                    android:text="@string/fragment_mine_local_music"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -48,13 +51,14 @@
                     android:id="@+id/iv_ge_dan"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:src="@mipmap/ic_download" />
+                    android:src="@mipmap/ic_download"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="下载管理"
+                    android:text="@string/fragment_mine_download_management"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -68,13 +72,14 @@
                     android:id="@+id/iv_pai_hang_bang"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:src="@mipmap/ic_my_radio" />
+                    android:src="@mipmap/ic_my_radio"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="我的电台"
+                    android:text="@string/fragment_mine_my_radio_station"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -88,13 +93,14 @@
                     android:id="@+id/iv_dian_tai"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:src="@mipmap/ic_my_collection" />
+                    android:src="@mipmap/ic_my_collection"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="我的收藏"
+                    android:text="@string/fragment_mine_my_collection"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -108,13 +114,14 @@
                     android:id="@+id/iv_zhi_bo"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:src="@mipmap/ic_new_music" />
+                    android:src="@mipmap/ic_new_music"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="关注新歌"
+                    android:text="@string/fragment_mine_follow_new_songs"
                     android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>

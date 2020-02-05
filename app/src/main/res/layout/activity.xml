@@ -22,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/bar_menu"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/activity_toolBar_image_size"
+                android:layout_height="@dimen/activity_toolBar_image_size"
                 android:layout_gravity="center"
                 android:background="@drawable/actionbar_menu"
                 tools:ignore="ContentDescription" />
@@ -32,8 +32,8 @@
                 android:id="@+id/bar_mine"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="@dimen/default_margin_size"
+                android:layout_marginLeft="@dimen/default_margin_size"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/toolbar_mine_text"
@@ -61,8 +61,8 @@
                 android:id="@+id/bar_video"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="@dimen/default_margin_size"
+                android:layout_marginRight="@dimen/default_margin_size"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/toolbar_video_text"
@@ -70,11 +70,11 @@
 
             <ImageView
                 android:id="@+id/bar_search"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/activity_toolBar_image_size"
+                android:layout_height="@dimen/activity_toolBar_image_size"
                 android:layout_gravity="center"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="@dimen/default_margin_size"
+                android:layout_marginRight="@dimen/default_margin_size"
                 android:background="@drawable/actionbar_search"
                 tools:ignore="ContentDescription" />
         </LinearLayout>
@@ -85,11 +85,4 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
-
-<!--    <FrameLayout-->
-<!--        android:id="@+id/bottom_container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="80dp" >-->
-<!--        <include layout="@layout/bottom_music_display"/>-->
-<!--    </FrameLayout>-->
 </LinearLayout>

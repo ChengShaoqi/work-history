@@ -7,65 +7,68 @@
     android:layout_marginBottom="15dp"
     android:descendantFocusability="afterDescendants">
 
-        <ImageView
-            android:id="@+id/music_display_state"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:src="@mipmap/ic_start_music_state"
-            android:visibility="gone" />
+    <ImageView
+        android:id="@+id/music_display_state"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:src="@mipmap/ic_start_music_state"
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
 
-        <LinearLayout
-            android:id="@+id/music_item_layout"
-            android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/music_item_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/default_margin_size"
+        android:paddingRight="@dimen/default_margin_size">
+
+        <TextView
+            android:id="@+id/local_music_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp">
+            android:gravity="start"
+            android:textSize="20sp"
+            tools:text="假如爱有天意" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_phone"
+                tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/local_music_name"
-                android:layout_width="match_parent"
+                android:id="@+id/local_music_singer_name"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:textSize="20sp"
-                tools:text="假如爱有天意" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/ic_phone" />
-
-                <TextView
-                    android:id="@+id/local_music_singer_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="start"
-                    android:textSize="15sp"
-                    tools:text="李健" />
-            </LinearLayout>
-
+                android:textSize="15sp"
+                tools:text="李健" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/ic_local_music_select"
-            android:layout_width="22dp"
-            android:layout_height="23dp"
-            android:layout_gravity="center_vertical"
-            android:focusable="false"
-            android:clickable="true"
-            android:src="@mipmap/ic_local_music_select" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ic_local_music_select"
+        android:layout_width="22dp"
+        android:layout_height="23dp"
+        android:layout_gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@mipmap/ic_local_music_select"
+        tools:ignore="ContentDescription" />
 
 </LinearLayout>
