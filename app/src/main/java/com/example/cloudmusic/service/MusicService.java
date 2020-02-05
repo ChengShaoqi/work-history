@@ -10,12 +10,12 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.example.cloudmusic.MusicMetaData;
+import com.example.cloudmusic.domain.MusicMetaData;
 import com.example.cloudmusic.MyApplication;
 import com.example.cloudmusic.activity.LocalMusicActivity;
 import com.example.cloudmusic.activity.MainActivity;
 import com.example.cloudmusic.activity.MusicDetailActivity;
-import com.example.cloudmusic.item.Music;
+import com.example.cloudmusic.domain.Music;
 
 import java.io.IOException;
 import java.util.ArrayList;

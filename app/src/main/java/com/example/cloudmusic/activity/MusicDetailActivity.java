@@ -18,11 +18,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.cloudmusic.LrcView;
-import com.example.cloudmusic.MusicMetaData;
+import com.example.cloudmusic.domain.MusicMetaData;
 import com.example.cloudmusic.MyApplication;
 import com.example.cloudmusic.R;
-import com.example.cloudmusic.item.Music;
-import com.example.cloudmusic.other.CircleImageView;
+import com.example.cloudmusic.domain.Music;
+import com.example.cloudmusic.util.circleimageutil.CircleImageView;
 import com.example.cloudmusic.service.MusicService;
 
 
@@ -153,18 +153,20 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         mTitleTv.setText(mMusicMetaData.getMMusicName());
         mArtistTv.setText(mMusicMetaData.getMSingerName());
         mMusicImageIv.setImageBitmap(mMusicMetaData.getMMusicCoverImage());
-        mMusicImageIv.playAnim();
 
         Log.i(TAG, "renderMusicMetaDataAndSeekBarView: " + mMediaState);
         if (mMediaState) {
             int musicState = ((MyApplication) getApplication()).getMMusicState();
             if (musicState == MusicService.MEDIA_PLAYER_PAUSE) {
                 mMusicStateIv.setImageResource(R.drawable.play_rdi_btn_play);
+                mMusicImageIv.pauseAnim();
             } else {
                 mMusicStateIv.setImageResource(R.drawable.play_rdi_btn_pause);
+                mMusicImageIv.playAnim();
             }
         } else {
             mMusicStateIv.setImageResource(R.drawable.play_rdi_btn_play);
+            mMusicImageIv.pauseAnim();
         }
         mTotalTime.setText(mMusicMetaData.getMMusicDuation());
         updateSeekBar();

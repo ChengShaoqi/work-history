@@ -1,4 +1,4 @@
-package com.example.cloudmusic.other;
+package com.example.cloudmusic.util.circleimageutil;
 
 import android.content.Context;
 import android.graphics.Bitmap;

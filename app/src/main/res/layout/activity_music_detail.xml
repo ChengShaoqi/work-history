@@ -73,7 +73,7 @@
 <!--                    android:scaleType="fitCenter"-->
 <!--                    android:src="@drawable/play_disc_halo" />-->
 
-                <com.example.cloudmusic.other.CircleImageView
+                <com.example.cloudmusic.util.circleimageutil.CircleImageView
                     android:id="@+id/circle_image_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -87,61 +87,9 @@
                     app:lrcMode="KARAOKE"
                     android:layout_height="match_parent"/>
 
-<!--                <me.wcy.lrcview.LrcView-->
-<!--                    android:id="@+id/lrc_view"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    app:lrcAnimationDuration="1000"-->
-<!--                    app:lrcLabel="无法解析歌词"-->
-<!--                    android:visibility="gone"/>-->
-
-<!--                <include-->
-<!--                    layout="@layout/fragment_lyric"-->
-<!--                    android:visibility="gone" />-->
-
-
-<!--                <View-->
-<!--                    android:id="@+id/view_line"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="1.0dip"-->
-<!--                    android:layout_alignParentTop="true"-->
-<!--                    android:layout_marginTop="0dp"-->
-<!--                    android:background="@drawable/play_topbar_line" />-->
-
-
             </RelativeLayout>
 
         </FrameLayout>
-
-<!--        <RelativeLayout-->
-<!--            android:id="@+id/lrcviewContainer"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_above="@+id/bottom_control"-->
-<!--            android:layout_marginTop="?attr/actionBarSize"-->
-<!--            android:visibility="invisible">-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tragetlrc"-->
-<!--                android:layout_width="100dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:layout_alignParentBottom="true"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:layout_gravity="bottom|center_horizontal"-->
-<!--                android:layout_marginBottom="10dp"-->
-<!--                android:background="#70d7d7d7"-->
-<!--                android:focusable="false"-->
-<!--                android:gravity="center"-->
-<!--                android:padding="5dp"-->
-<!--                android:text="获取封面和歌词"-->
-<!--                android:textAlignment="center" />-->
-
-<!--            <com.example.cloudmusic.other.LrcView-->
-<!--                android:id="@+id/lrcview"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_marginTop="10dp" />-->
-<!--        </RelativeLayout>-->
 
         <LinearLayout
             android:id="@+id/bottom_control"
@@ -214,7 +162,7 @@
                     android:textColor="@color/white_text"
                     android:textSize="10sp" />
 
-                <com.example.cloudmusic.another.PlayerSeekBar
+                <SeekBar
                     android:id="@+id/play_seek"
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                     android:layout_width="0dp"

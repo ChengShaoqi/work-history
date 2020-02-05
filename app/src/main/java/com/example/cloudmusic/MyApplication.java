@@ -4,7 +4,8 @@ import android.app.Application;
 import android.content.ServiceConnection;
 import android.media.MediaPlayer;
 
-import com.example.cloudmusic.item.Music;
+import com.example.cloudmusic.domain.Music;
+import com.example.cloudmusic.domain.MusicMetaData;
 import com.example.cloudmusic.service.MusicService;
 
 import java.util.ArrayList;

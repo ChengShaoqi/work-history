@@ -49,7 +49,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="10dp"
-                    android:src="@drawable/night_mode" />
+                    android:src="@drawable/home_navigation_bottom_night_mode" />
 
                 <TextView
                     android:id="@+id/night_mode"
@@ -92,7 +92,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="10dp"
-                    android:src="@drawable/quit" />
+                    android:src="@drawable/home_navigation_bottom_quit" />
 
                 <TextView
                     android:id="@+id/quit"

@@ -1,4 +1,4 @@
-package com.example.cloudmusic.item;
+package com.example.cloudmusic.domain;
 
 public class Music {
     private String mMusicName;

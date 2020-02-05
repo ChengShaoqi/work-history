@@ -23,16 +23,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cloudmusic.MusicMetaData;
+import com.example.cloudmusic.domain.MusicMetaData;
 import com.example.cloudmusic.MyApplication;
 import com.example.cloudmusic.R;
 import com.example.cloudmusic.adapter.LocalMusicAdapter;
 import com.example.cloudmusic.fragment.LocalMusicFragment;
 import com.example.cloudmusic.fragment.LocalMusicOtherFragment;
-import com.example.cloudmusic.item.Music;
+import com.example.cloudmusic.domain.Music;
 import com.example.cloudmusic.service.MusicService;
 import com.google.android.material.tabs.TabLayout;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -223,7 +224,24 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
         mViewPager.setAdapter(fragmentPagerAdapter);
 
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.setTabsFromPagerAdapter(fragmentPagerAdapter);
+        //网上说setTabSFromPagerAdapter可以不调用，仅仅调用setupWithViewPager就可以了
+//        mTabLayout.setTabsFromPagerAdapter(fragmentPagerAdapter);
+    }
+
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        if (menu != null) {
+            if (menu.getClass().getSimpleName().equalsIgnoreCase("MenuBuilder")) {
+                try {
+                    Method method = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    method.setAccessible(true);
+                    method.invoke(menu, true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return super.onMenuOpened(featureId, menu);
     }
 
     @Override

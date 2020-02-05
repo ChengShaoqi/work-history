@@ -9,9 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +18,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.cloudmusic.MusicMetaData;
+import com.example.cloudmusic.domain.MusicMetaData;
 import com.example.cloudmusic.MyApplication;
 import com.example.cloudmusic.R;
 import com.example.cloudmusic.adapter.CloudMusicFragmentPagerAdapter;
@@ -35,7 +33,7 @@ import com.example.cloudmusic.adapter.LoopPicturePagerAdapter;
 import com.example.cloudmusic.db.MusicDbHelper;
 import com.example.cloudmusic.fragment.FindFragment;
 import com.example.cloudmusic.fragment.MineFragment;
-import com.example.cloudmusic.item.Music;
+import com.example.cloudmusic.domain.Music;
 import com.example.cloudmusic.service.MusicService;
 import com.google.android.material.navigation.NavigationView;
 
@@ -44,7 +42,7 @@ import java.util.List;
 
 import static com.example.cloudmusic.service.MusicService.MEDIA_PLAYER_PAUSE;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, FindFragment.IFindFragmentCallBack,
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, FindFragment.IFindFragmentCallBack,
         MineFragment.IMineFragmentCallBack, MusicService.MainActivityCallback {
     private static final String TAG = "csqMainActivity";
     public static final int MAIN_ACTIVITY_STATE_CODE = 1;

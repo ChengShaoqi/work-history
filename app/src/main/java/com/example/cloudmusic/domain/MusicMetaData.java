@@ -1,4 +1,4 @@
-package com.example.cloudmusic;
+package com.example.cloudmusic.domain;
 
 import android.graphics.Bitmap;
 

@@ -29,7 +29,7 @@
             android:title="@string/nav_drawer_mall" />
         <item
             android:id="@+id/nav_drawer_game_recommendation"
-            android:icon="@drawable/home_navigation_game_recommand"
+            android:icon="@drawable/home_navigation_game_recommend"
             android:title="@string/nav_drawer_game_recommendation" />
         <item
             android:id="@+id/nav_drawer_pocket_ring_back_tone"

@@ -1,5 +1,4 @@
-package com.example.cloudmusic.util;
-
+package com.example.cloudmusic.util.lrcutil;
 
 import com.example.cloudmusic.bean.LrcBean;
 

@@ -14,8 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.cloudmusic.R;
-import com.example.cloudmusic.activity.LocalMusicActivity;
-import com.example.cloudmusic.item.Music;
+import com.example.cloudmusic.domain.Music;
 
 import java.util.List;
 

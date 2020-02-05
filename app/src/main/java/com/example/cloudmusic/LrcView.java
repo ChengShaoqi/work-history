@@ -10,14 +10,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.example.cloudmusic.bean.LrcBean;
-import com.example.cloudmusic.util.LrcUtil;
+import com.example.cloudmusic.util.lrcutil.LrcUtil;
 
 import java.util.List;
-
-
-/**
- * Created by 王松 on 2016/10/21.
- */
 
 public class LrcView extends View {
 

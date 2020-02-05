@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.cloudmusic.R;
 
 import java.util.Timer;
@@ -11,7 +13,7 @@ import java.util.TimerTask;
 
 //1、延迟三秒
 //2、跳转页面
-public class WelcomeActivity extends BaseActivity {
+public class WelcomeActivity extends AppCompatActivity {
     private static final String TAG = "csqWelcomeActivity";
     private static final int WELCOME_SHOW_TIME = 1000;
     private Timer mTimer;
