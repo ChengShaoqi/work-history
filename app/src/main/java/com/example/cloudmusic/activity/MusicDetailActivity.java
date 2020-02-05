@@ -87,8 +87,10 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             ActionBar ab = getSupportActionBar();
-            ab.setDisplayHomeAsUpEnabled(true);
-            ab.setHomeAsUpIndicator(R.drawable.actionbar_back);
+            if (ab != null) {
+                ab.setDisplayHomeAsUpEnabled(true);
+                ab.setHomeAsUpIndicator(R.drawable.actionbar_back);
+            }
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -125,9 +127,6 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                if (mMediaPlayer != null && fromUser) {
-//                    mMediaPlayer.seekTo(progress * 1000);
-//                }
             }
 
             @Override
@@ -143,8 +142,6 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
                 }
             }
         });
-
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -259,11 +256,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         mLrcView.init();
     }
 
-    /**
-     * 从assets目录下读取歌词文件内容
-     * @param fileName
-     * @return result
-     */
+    //从assets目录下读取歌词文件内容
     public String getFromAssets(String fileName) {
         try {
             InputStreamReader inputReader = new InputStreamReader(getResources().getAssets().open(fileName));

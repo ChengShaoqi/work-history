@@ -23,10 +23,8 @@ import java.util.List;
 
 public class MusicService extends Service {
     private static final String TAG = "csqMusicService";
-    public static final int MEDIA_PLAYER_START = 1;
     public static final int MEDIA_PLAYER_PLAY = 2;
     public static final int MEDIA_PLAYER_PAUSE = 3;
-    public static final int MEDIA_PLAYER_STOP = 4;
 
     private MediaPlayer mMediaPlayer;
     private LocalBinder mLocalBinder = new LocalBinder();
