@@ -1,10 +1,7 @@
 package com.example.cloudmusic.activity;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.animation.TimeAnimator;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -99,7 +96,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                     mNetWorkSwitchItem_2.setChecked(false);
                 } else {
                     mNetWorkSwitchItem_2.setChecked(true);
-                    ;
                 }
                 mEditor.putBoolean("mNetWorkSwitchItem_2_state", mNetWorkSwitchItem_2.isChecked());
                 mEditor.apply();

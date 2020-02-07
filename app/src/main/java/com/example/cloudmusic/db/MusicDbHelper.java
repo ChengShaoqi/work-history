@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class MusicDbHelper extends SQLiteOpenHelper {
 
-    public static final String CREATE_MUSIC = "create table Music ("
+    private static final String CREATE_MUSIC = "create table Music ("
             + "_id integer primary key autoincrement, "
             + "music_name text, "
             + "singer_name text, "

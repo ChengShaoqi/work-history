@@ -9,9 +9,8 @@ import java.util.List;
 
 public class CloudMusicFragmentPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> mFragmentList;
-
     public CloudMusicFragmentPagerAdapter(@NonNull FragmentManager fm, List<Fragment> fragmentList) {
-        super(fm);
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.mFragmentList = fragmentList;
     }
 

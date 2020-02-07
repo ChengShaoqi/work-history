@@ -37,6 +37,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
 import static com.example.cloudmusic.service.MusicService.MEDIA_PLAYER_PAUSE;
 
 public class LocalMusicActivity extends AppCompatActivity implements LocalMusicFragment.ILocalMusicCallback, View.OnClickListener,
@@ -120,7 +121,7 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
     protected void onStart() {
         initBottomDisplayUi();
         Log.i(TAG, "onStart: " + mMusicMetaData.getMMusicName());
-        ((MyApplication)getApplication()).setMCurrentActivity(LOCAL_MUSIC_ACTIVITY_STATE_CODE);
+        ((MyApplication) getApplication()).setMCurrentActivity(LOCAL_MUSIC_ACTIVITY_STATE_CODE);
         super.onStart();
     }
 
@@ -150,7 +151,7 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
                     mMusicState.setImageResource(R.mipmap.pause_music);
                 } else {
                     ma.getMMusicService().changeMusicState();
-                    int musicState =  ((MyApplication)getApplication()).getMMusicState();
+                    int musicState = ((MyApplication) getApplication()).getMMusicState();
                     if (musicState == MEDIA_PLAYER_PAUSE) {
                         mMusicState.setImageResource(R.mipmap.start_music);
                     } else {
@@ -203,7 +204,8 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
             mTabLayout.addTab(mTabLayout.newTab().setTag(mTitleList.get(i)));
         }
 
-        FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+        FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(),
+                BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @NonNull
             @Override
             public Fragment getItem(int position) {
@@ -228,12 +230,14 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
 //        mTabLayout.setTabsFromPagerAdapter(fragmentPagerAdapter);
     }
 
+    //显示menu中的图标
     @Override
     public boolean onMenuOpened(int featureId, Menu menu) {
         if (menu != null) {
             if (menu.getClass().getSimpleName().equalsIgnoreCase("MenuBuilder")) {
                 try {
-                    Method method = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    Method method = menu.getClass().getDeclaredMethod("setOptionalIconsVisible",
+                            Boolean.TYPE);
                     method.setAccessible(true);
                     method.invoke(menu, true);
                 } catch (Exception e) {
@@ -328,7 +332,6 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
                         "onItemClick: ((MyApplication) getApplication()).getMMusicState() :" +
                         ((MyApplication) getApplication()).getMMusicState());
 
-                int hitTime = 1;
                 //如果，不进行重新播放该歌曲
                 if (position == ((MyApplication) getApplication()).getMPosition() && position != 0) {
 //                    initBottomDisplayUi(((MyApplication) getApplication()).getMPosition());

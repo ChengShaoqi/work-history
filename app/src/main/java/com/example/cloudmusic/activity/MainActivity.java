@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,14 +22,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.cloudmusic.adapter.SongListAdapter;
 import com.example.cloudmusic.domain.MusicMetaData;
 import com.example.cloudmusic.MyApplication;
 import com.example.cloudmusic.R;
 import com.example.cloudmusic.adapter.CloudMusicFragmentPagerAdapter;
 import com.example.cloudmusic.adapter.LoopPicturePagerAdapter;
 import com.example.cloudmusic.db.MusicDbHelper;
+import com.example.cloudmusic.domain.SongList;
 import com.example.cloudmusic.fragment.FindFragment;
 import com.example.cloudmusic.fragment.MineFragment;
 import com.example.cloudmusic.domain.Music;
@@ -81,7 +84,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             R.mipmap.ranklist_third,
             R.mipmap.ranklist_fifth,
             R.mipmap.ranklist_six};
-    private String[] mRankListTitle = {"ACG音乐榜", "新歌榜", "原创榜", "热歌榜", "古典音乐榜", "飙升榜"};
+    private List<SongList> mSongList = new ArrayList<>();
+    private int[] mSongListImageId = new int[]{
+            R.drawable.song_list_1,
+            R.drawable.song_list_2,
+            R.drawable.song_list_3,
+            R.drawable.song_list_4,
+            R.drawable.song_list_5,
+            R.drawable.song_list_6,
+            R.drawable.song_list_7,
+            R.drawable.song_list_8,
+            R.drawable.song_list_9,
+            R.drawable.song_list_10,
+            R.drawable.song_list_11,
+            R.drawable.song_list_12
+    };
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -106,7 +123,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mMusicDbHelper = new MusicDbHelper(this, "MusicStore.db", null, 1);
         initDatabaseData();
-
+        //初始化我的歌单的数据
+        initMineFragmentSongListData();
         initView();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -212,19 +230,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initDatabaseData() {
-        mMusicNameList = new String[]{"大千世界", "平行宇宙", "江湖", "明智之举"};
-        mSingerNameList = new String[]{"许嵩", "许嵩", "许嵩", "许嵩"};
+        mMusicNameList = new String[]{
+                getString(R.string.song_name_dqsj),
+                getString(R.string.song_name_pxyz),
+                getString(R.string.song_name_jh),
+                getString(R.string.song_name_mzzj)};
+        mSingerNameList = new String[]{
+                getString(R.string.singer_xs),
+                getString(R.string.singer_xs),
+                getString(R.string.singer_xs),
+                getString(R.string.singer_xs)};
         mMusicPathList = new String[]{
-                "/sdcard/netease/cloudmusic/Music/许嵩 - 大千世界.mp3",
-                "/sdcard/netease/cloudmusic/Music/许嵩 - 平行宇宙.mp3",
-                "/sdcard/netease/cloudmusic/Music/许嵩 - 江湖.mp3",
-                "/sdcard/netease/cloudmusic/Music/许嵩 - 明智之举.mp3"};
+                getString(R.string.song_path_xs_dqsj),
+                getString(R.string.song_path_xs_pxyz),
+                getString(R.string.song_path_xs_jh),
+                getString(R.string.song_path_xs_mzzj)};
 
         mLyricPath = new String[]{
-                "/sdcard/tencent/qqfile_recv/xs_dqsj.lrc",
-                "/sdcard/tencent/qqfile_recv/xs_pxyz.lrc",
-                "/sdcard/tencent/qqfile_recv/xs_jh.lrc",
-                "/sdcard/tencent/qqfile_recv/xs_mzzj.lrc"
+                getString(R.string.song_lrc_path_xs_dqsj),
+                getString(R.string.song_lrc_path_xs_pxyz),
+                getString(R.string.song_lrc_path_xs_jh),
+                getString(R.string.song_lrc_path_xs_mzzj)
         };
         mMusicList = queryMusicData();
         if (mMusicList.size() == mMusicPathList.length) {
@@ -264,6 +290,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.i(TAG, "queryMusicData: 准备setMMusicList");
         ((MyApplication) getApplication()).setMMusicList(mMusicList);
         return ((MyApplication) getApplication()).getMMusicList();
+    }
+
+    private void initMineFragmentSongListData() {
+        for (int i = 0; i < mSongListImageId.length; i++) {
+            SongList songList = new SongList(mSongListImageId[i],
+                    getString(R.string.fragment_mine_songList_name) + (i + 1),
+                    (i + 1) + getString(R.string.fragment_mine_songList_number));
+            mSongList.add(songList);
+        }
     }
 
     private void initView() {
@@ -353,11 +388,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    /**
-     * 轮询图片
-     *
-     * @param viewPager
-     */
+    //轮询图片
     private void loopPictureInThread(final ViewPager viewPager) {
         new Thread() {
             public void run() {
@@ -385,19 +416,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void updateFindFragmentUi(LinearLayout linearLayout) {
+        String[] rankListTitle = {
+                getString(R.string.rank_list_acgyyb),
+                getString(R.string.rank_list_xgb),
+                getString(R.string.rank_list_ycb),
+                getString(R.string.rank_list_rgb),
+                getString(R.string.rank_list_gdyyb),
+                getString(R.string.rank_list_bsb)
+        };
         for (int i = 0; i < mRankListImageResId.length; i++) {
             View view = LayoutInflater.from(this).inflate(R.layout.song_list_item, linearLayout, false);
             ImageView imageView = view.findViewById(R.id.song_list_image);
             TextView textView = view.findViewById(R.id.song_list_text);
             imageView.setImageResource(mRankListImageResId[i]);
-            textView.setText(mRankListTitle[i]);
+            textView.setText(rankListTitle[i]);
             linearLayout.addView(view);
         }
     }
 
     @Override
-    public void updateMineFragmentUi(ListView listView) {
-
+    public void updateMineFragmentUi(RecyclerView recyclerView) {
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        SongListAdapter songListAdapter = new SongListAdapter(mSongList);
+        recyclerView.setAdapter(songListAdapter);
     }
 
     @Override

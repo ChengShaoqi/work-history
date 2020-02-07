@@ -64,10 +64,9 @@ public class MusicService extends Service {
         mMediaPlayer = new MediaPlayer();
         ((MyApplication) getApplication()).setMMediaPlayer(mMediaPlayer);
         Log.i(TAG, "onCreate: musicService的list" + mMusicList);
-
-
     }
 
+    //获取从数据源中提取出的音乐元信息
     public MusicMetaData getMetaData(String path) {
         mMediaMetadataRetriever.setDataSource(path);
         byte[] picture = mMediaMetadataRetriever.getEmbeddedPicture();
@@ -179,16 +178,6 @@ public class MusicService extends Service {
     public int getCurrentPosition() {
         return mMediaPlayer.getCurrentPosition();
     }
-
-//    private MusicMetaData getMainActivityMusicMetaData(MusicService musicService) {
-//        Log.e(TAG, "initBottomDisplayUi: 准备更新main页面的底部栏");
-//        Music music = mMusicList.get(((MyApplication) getApplication()).getMPosition());
-////        mMusicService = ((MyApplication) getApplication()).getMMusicService();
-//        musicService.getMetaData(music.getMMusicPath());
-//        MusicMetaData musicMetaData = ((MyApplication) getApplication()).getMMusicMetaData();
-//
-//       return musicMetaData;
-//    }
 
     @Override
     public IBinder onBind(Intent intent) {

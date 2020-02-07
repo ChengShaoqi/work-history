@@ -33,20 +33,51 @@
     <string name="setting_activity_tv_network_flow_download">使用2G/3G/4G网络下载</string>
     <string name="setting_activity_tv_network_wifi_display">动态页中Wi-Fi下自动下载播放视频</string>
     <string name="setting_activity_tv_network_wifi_continuous_display">视频页中Wi-Fi下连续播放</string>
-    <string name="fragment_local_music_paly_all">播放全部</string>
+
+    <string name="fragment_local_music_play_all">播放全部</string>
     <string name="fragment_local_music_multiple_choice">多选</string>
+
     <string name="fragment_find_handpicked_for_you">为您精挑细选</string>
     <string name="fragment_find_recommended_song_list">推荐歌单</string>
+
     <string name="fragment_find_live">直播</string>
     <string name="fragment_find_radio_station">电台</string>
     <string name="fragment_find_leader_board">排行榜</string>
     <string name="fragment_find_song_list">歌单</string>
     <string name="fragment_find_recommended_daily">每日推荐</string>
+
     <string name="fragment_mine_local_music">本地音乐</string>
     <string name="fragment_mine_download_management">下载管理</string>
     <string name="fragment_mine_my_radio_station">我的电台</string>
     <string name="fragment_mine_my_collection">我的收藏</string>
     <string name="fragment_mine_follow_new_songs">关注新歌</string>
+
+    <string name="song_name_dqsj">大千世界</string>
+    <string name="song_name_pxyz">平行宇宙</string>
+    <string name="song_name_jh">江湖</string>
+    <string name="song_name_mzzj">明智之举</string>
+
+    <string name="singer_xs">许嵩</string>
+
+    <string name="song_path_xs_dqsj">/sdcard/netease/cloudmusic/Music/许嵩 - 大千世界.mp3</string>
+    <string name="song_path_xs_pxyz">/sdcard/netease/cloudmusic/Music/许嵩 - 平行宇宙.mp3</string>
+    <string name="song_path_xs_jh">/sdcard/netease/cloudmusic/Music/许嵩 - 江湖.mp3</string>
+    <string name="song_path_xs_mzzj">/sdcard/netease/cloudmusic/Music/许嵩 - 明智之举.mp3</string>
+
+    <string name="song_lrc_path_xs_dqsj">/sdcard/tencent/qqfile_recv/xs_dqsj.lrc</string>
+    <string name="song_lrc_path_xs_pxyz">/sdcard/tencent/qqfile_recv/xs_pxyz.lrc</string>
+    <string name="song_lrc_path_xs_jh">/sdcard/tencent/qqfile_recv/xs_jh.lrc</string>
+    <string name="song_lrc_path_xs_mzzj">/sdcard/tencent/qqfile_recv/xs_mzzj.lrc</string>
+
+    <string name="rank_list_acgyyb">ACG音乐榜</string>
+    <string name="rank_list_xgb">新歌榜</string>
+    <string name="rank_list_ycb">原创榜</string>
+    <string name="rank_list_rgb">热歌榜</string>
+    <string name="rank_list_gdyyb">古典音乐榜</string>
+    <string name="rank_list_bsb">飙升榜</string>
+    <string name="fragment_mine_create_song_list">我的歌单</string>
+    <string name="fragment_mine_songList_name">歌单</string>
+    <string name="fragment_mine_songList_number">首</string>
 
 
 </resources>

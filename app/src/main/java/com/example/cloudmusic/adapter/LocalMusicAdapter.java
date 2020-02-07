@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +20,6 @@ import java.util.List;
 public class LocalMusicAdapter extends ArrayAdapter {
     private static final String TAG = "csqLocalMusicAdapter";
     private int mResourceId;
-    private LinearLayout mLinearLayout;
     private List<Music> mMusicList;
     private Context mContext;
 
@@ -58,17 +56,6 @@ public class LocalMusicAdapter extends ArrayAdapter {
                 Toast.makeText(getContext(), "点击了歌曲选项按钮", Toast.LENGTH_SHORT).show();
             }
         });
-
-//        mLinearLayout = view.findViewById(R.id.music_item_layout);
-//        mLinearLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //底部框更新ui，开启音乐
-//                Log.d(TAG, "onClick: " + position);
-//                mILocalMusicAdapterCallback.initBottomDisplayUi(position);
-//            }
-//        });
-
         return view;
     }
 

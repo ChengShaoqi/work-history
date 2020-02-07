@@ -10,14 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@mipmap/background"
+        android:layout_marginBottom="@dimen/default_margin_size"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/layout_local_music"
@@ -125,6 +126,18 @@
                     android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin_size"
+        android:text="@string/fragment_mine_create_song_list" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/song_list_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_margin="@dimen/default_margin_size" />
+
 </LinearLayout>

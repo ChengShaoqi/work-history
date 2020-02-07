@@ -61,13 +61,14 @@
 
     </LinearLayout>
 
+    <!--android:focusable="false"不能改为true，改了之后listView的item点击会无反应-->
     <ImageView
         android:id="@+id/ic_local_music_select"
         android:layout_width="22dp"
         android:layout_height="23dp"
         android:layout_gravity="center_vertical"
         android:clickable="true"
-        android:focusable="true"
+        android:focusable="false"
         android:src="@mipmap/ic_local_music_select"
         tools:ignore="ContentDescription" />
 

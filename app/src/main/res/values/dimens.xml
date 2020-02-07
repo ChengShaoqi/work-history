@@ -20,5 +20,6 @@
     <dimen name="fragment_find_image_default_size">30dp</dimen>
     <dimen name="fragment_find_horizontalScrollView_margin_size">15dp</dimen>
     <dimen name="activity_toolBar_image_size">30dp</dimen>
+    <dimen name="fragment_mine_song_list_image_size">50dp</dimen>
 
 </resources>
