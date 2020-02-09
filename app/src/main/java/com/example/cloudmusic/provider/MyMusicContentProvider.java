@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 
 import com.example.cloudmusic.db.MusicDbHelper;
 
+@SuppressWarnings("ConstantConditions")
 public class MyMusicContentProvider extends ContentProvider {
     public static final int MUSIC_DIR = 0;
     public static final int MUSIC_ITEM = 1;
@@ -60,6 +61,9 @@ public class MyMusicContentProvider extends ContentProvider {
             default:
                 break;
         }
+
+        getContext().getContentResolver().notifyChange(uri, null);
+
         return uriReturn;
     }
 
@@ -81,6 +85,12 @@ public class MyMusicContentProvider extends ContentProvider {
             default:
                 break;
         }
+
+        if (cursor != null) {
+            //添加通知对象
+            cursor.setNotificationUri(getContext().getContentResolver(), uri);
+        }
+
         return cursor;
     }
 
@@ -100,6 +110,11 @@ public class MyMusicContentProvider extends ContentProvider {
             default:
                 break;
         }
+
+        if (updatedRows > 0) {     //通知，数据源发生改变
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
         return updatedRows;
     }
 
@@ -118,6 +133,9 @@ public class MyMusicContentProvider extends ContentProvider {
             default:
                 break;
         }
+
+        getContext().getContentResolver().notifyChange(uri, null);
+
         return deletedRows;
     }
 }
