@@ -277,33 +277,6 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         return "";
     }
 
-//    private static String readString(File file) {
-//
-//        int len = 0;
-//        StringBuilder str = new StringBuilder();
-//        try {
-//            FileInputStream is = new FileInputStream(file);
-//            InputStreamReader isr = new InputStreamReader(is);
-//            BufferedReader in = new BufferedReader(isr);
-//
-//            String line;
-//            while ((line = in.readLine()) != null) {
-//                if (len != 0)  // 处理换行符的问题
-//                {
-//                    str.append("\r\n").append(line);
-//                } else {
-//                    str.append(line);
-//                }
-//                len++;
-//            }
-//            in.close();
-//            is.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return str.toString();
-//    }
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void updateActivityUi() {

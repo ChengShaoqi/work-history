@@ -97,15 +97,6 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
         initBottomDisplayUi();
         Log.i(TAG, "onCreate: " + mMusicMetaData.getMMusicName());
 
-//        Music music = mMusicList.get(((MyApplication) getApplication()).getMPosition());
-//        mMusicMetaData = ((MyApplication) getApplication()).getMMusicService().getMetaData(music.getMMusicPath());
-//        mMusicImage.setImageBitmap(mMusicMetaData.getMMusicCoverImage());
-//        mMusicName.setText(mMusicMetaData.getMMusicName());
-//        mSingerName.setText(mMusicMetaData.getMSingerName());
-//        mMusicState.setImageResource(R.mipmap.start_music);
-
-//        Log.e(TAG, "onCreate:0 " + ((MyApplication) getApplication()).getMMusicService());
-
     }
 
     private void initToolbar() {
@@ -298,18 +289,6 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
         mMusicService.getMetaData(music.getMMusicPath());
         mMusicMetaData = ((MyApplication) getApplication()).getMMusicMetaData();
         mHandler.sendEmptyMessage(1);
-
-//        if (!mediaState) {
-//            Log.i(TAG, "initBottomDisplayUi: ms == null");
-//            Log.d(TAG, "initBottomDisplayUi: " + mediaState);
-//            mHandler.sendEmptyMessage(1);
-//            }else {
-//            Log.d(TAG, "initBottomDisplayUi: " + mediaState);
-//
-//            mHandler.sendEmptyMessage(2);
-//        }
-//        ((MyApplication) getApplication()).getMMusicService().initMediaPlayerAndPlayMusic(music.getMMusicPath());
-
     }
 
     public void startDisplayMusic(int position) {
@@ -334,7 +313,6 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
 
                 //如果，不进行重新播放该歌曲
                 if (position == ((MyApplication) getApplication()).getMPosition() && position != 0) {
-//                    initBottomDisplayUi(((MyApplication) getApplication()).getMPosition());
                     Log.i(TAG, "onItemClick:(持续点击同一首歌) ((MyApplication) getApplication()).getMMediaState() :" +
                             ((MyApplication) getApplication()).getMMediaState() + "\n" +
                             "onItemClick: ((MyApplication) getApplication()).getMMusicState() :" +
@@ -348,18 +326,7 @@ public class LocalMusicActivity extends AppCompatActivity implements LocalMusicF
                             "onItemClick: ((MyApplication) getApplication()).getMMusicState() :" +
                             ((MyApplication) getApplication()).getMMusicState());
                     initBottomDisplayUi();
-
-//                    mMediaState = true;
-//                    ((MyApplication) getApplication()).setMMediaState(mMediaState);
                 }
-
-//                Music music = mMusicList.get(position);
-//                ImageView imageView = findViewById(R.id.music_display_state);
-//                imageView.setVisibility(View.VISIBLE);
-//                Message message = Message.obtain();
-//                message.what = 0;
-//                message.obj = music;
-//                mHandler.sendMessage(message);
             }
         });
     }

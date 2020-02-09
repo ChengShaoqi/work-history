@@ -177,7 +177,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.pre_music:
                 ((MyApplication) getApplication()).getMMusicService().preMusic();
                 initBottomDisplayUi();
-//                Toast.makeText(this, "点击了上一首", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.music_state_button:
                 MyApplication ma = ((MyApplication) getApplication());
@@ -194,12 +193,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mMusicState.setImageResource(R.mipmap.pause_music);
                     }
                 }
-//                Toast.makeText(this, "点击了播放/暂停", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.next_music:
                 ((MyApplication) getApplication()).getMMusicService().nextMusic();
                 initBottomDisplayUi();
-//                Toast.makeText(this, "点击了下一首", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.setting_layout:
                 Intent intentToSettings = new Intent(this, SettingActivity.class);
