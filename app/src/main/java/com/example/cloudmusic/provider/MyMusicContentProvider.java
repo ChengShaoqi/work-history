@@ -7,10 +7,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+
 import com.example.cloudmusic.db.MusicDbHelper;
 
 public class MyMusicContentProvider extends ContentProvider {
-    private static final String TAG = "csqMyMusicContentProvider";
     public static final int MUSIC_DIR = 0;
     public static final int MUSIC_ITEM = 1;
 
@@ -36,7 +37,7 @@ public class MyMusicContentProvider extends ContentProvider {
     }
 
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         switch (mUriMatcher.match(uri)) {
             case MUSIC_DIR:
                 return "vnd.android.cursor.dir/vnd.com.example.cloudmusic.provider.music";
@@ -47,7 +48,7 @@ public class MyMusicContentProvider extends ContentProvider {
     }
 
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    public Uri insert(@NonNull Uri uri, ContentValues values) {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         Uri uriReturn = null;
         switch (mUriMatcher.match(uri)) {
@@ -59,14 +60,11 @@ public class MyMusicContentProvider extends ContentProvider {
             default:
                 break;
         }
-
-        getContext().getContentResolver().notifyChange(uri,null);
-
         return uriReturn;
     }
 
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection,
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         Cursor cursor = null;
@@ -83,17 +81,11 @@ public class MyMusicContentProvider extends ContentProvider {
             default:
                 break;
         }
-
-        if(cursor!=null){
-            //添加通知对象
-            cursor.setNotificationUri(getContext().getContentResolver(),uri);
-        }
-
         return cursor;
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection,
+    public int update(@NonNull Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         int updatedRows = 0;
@@ -108,16 +100,11 @@ public class MyMusicContentProvider extends ContentProvider {
             default:
                 break;
         }
-
-        if(updatedRows>0){     //通知，数据源发生改变
-            getContext().getContentResolver().notifyChange(uri,null);
-        }
-
         return updatedRows;
     }
 
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         int deletedRows = 0;
         switch (mUriMatcher.match(uri)) {
@@ -131,9 +118,6 @@ public class MyMusicContentProvider extends ContentProvider {
             default:
                 break;
         }
-
-        getContext().getContentResolver().notifyChange(uri,null);
-
         return deletedRows;
     }
 }

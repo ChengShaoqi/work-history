@@ -38,13 +38,6 @@ public class MusicService extends Service {
     public MusicService() {
     }
 
-//    public MusicService(MainActivityCallback mainActivityCallback, LocalMusicActivityCallback localMusicActivityCallback,
-//                        MusicDetailActivityCallback musicDetailActivityCallback) {
-//        this.mMainActivityCallback = mainActivityCallback;
-//        this.mLocalMusicActivityCallback = localMusicActivityCallback;
-//        this.mMusicDetailActivityCallback = musicDetailActivityCallback;
-//    }
-
     public void setMainActivityCallback(MainActivityCallback mainActivityCallback) {
         mMainActivityCallback = mainActivityCallback;
     }
@@ -72,12 +65,9 @@ public class MusicService extends Service {
         byte[] picture = mMediaMetadataRetriever.getEmbeddedPicture();
         Bitmap bitmap = BitmapFactory.decodeByteArray(picture, 0, picture.length);
         String title = mMediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE); // API LEVEL 10, 即从GB2.3.3开始有此功能
-        Log.d(TAG, "title:" + title);
         String artist = mMediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
-        Log.d(TAG, "artist:" + artist);
         String duration = mMediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION); // 播放时长单位为毫秒
         String time = timeParse(duration);
-        Log.d(TAG, "duration:" + time);
         MusicMetaData musicMetaData = new MusicMetaData(bitmap, title, artist, time);
         ((MyApplication) getApplication()).setMMusicMetaData(musicMetaData);
         return musicMetaData;
@@ -99,10 +89,6 @@ public class MusicService extends Service {
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer arg0) {
-//                mMediaPlayer.start();
-//                ((MyApplication)getApplication()).setMMusicState(MEDIA_PLAYER_PLAY);
-//                mMediaPlayer.setLooping(true);
-
                 nextMusic();
                 int currentActivity = ((MyApplication) getApplication()).getMCurrentActivity();
                 if (currentActivity == MainActivity.MAIN_ACTIVITY_STATE_CODE) {
@@ -169,14 +155,6 @@ public class MusicService extends Service {
         } else {
             return false;
         }
-    }
-
-    public boolean getMediaPlayerState() {
-        return mMediaPlayer.isPlaying();
-    }
-
-    public int getCurrentPosition() {
-        return mMediaPlayer.getCurrentPosition();
     }
 
     @Override
