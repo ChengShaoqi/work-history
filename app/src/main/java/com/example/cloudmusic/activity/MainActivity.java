@@ -121,13 +121,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         mMusicDbHelper = new MusicDbHelper(this, "MusicStore.db", null, 1);
+        //初始化数据库数据
         initDatabaseData();
         //初始化我的歌单的数据
         initMineFragmentSongListData();
+
         initView();
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
         initViewPager();
 
         initLoopPictureView();
@@ -210,7 +214,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initBottomDisplayUi() {
         Log.e(TAG, "initBottomDisplayUi: 准备更新main页面的底部栏");
         Music music = mMusicList.get(((MyApplication) getApplication()).getMPosition());
-//        mMusicService = ((MyApplication) getApplication()).getMMusicService();
         Log.e(TAG, "initBottomDisplayUi: " + music);
         Log.e(TAG, "initBottomDisplayUi: " + mMusicService);
 
@@ -250,6 +253,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 getString(R.string.song_lrc_path_xs_mzzj)
         };
         mMusicList = queryMusicData();
+        //如果查询到数据库的歌曲个数和要插入的个数相等，则直接返回，否则进行数据库插入数据
         if (mMusicList.size() == mMusicPathList.length) {
             return;
         }

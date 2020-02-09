@@ -4,6 +4,14 @@
     tools:showIn="navigation_view">
 
     <group
+        android:id="@+id/group_0"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/test_for_line"
+            android:title="" />
+    </group>
+
+    <group
         android:id="@+id/group_1"
         android:checkableBehavior="single">
         <item
