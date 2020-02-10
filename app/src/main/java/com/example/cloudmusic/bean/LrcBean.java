@@ -1,9 +1,5 @@
 package com.example.cloudmusic.bean;
 
-/**
- * Created by 王松 on 2016/10/20.
- */
-
 public class LrcBean {
     private String lrc;
     private long start;

@@ -5,10 +5,6 @@ import com.example.cloudmusic.bean.LrcBean;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by 王松 on 2016/10/21.
- */
-
 public class LrcUtil {
     /**
      * 传入的参数为标准歌词字符串

@@ -178,7 +178,6 @@ public class LrcView extends View {
                 }
             }
         } catch (Exception e) {
-//            e.printStackTrace();
             postInvalidateDelayed(100);
         }
     }
